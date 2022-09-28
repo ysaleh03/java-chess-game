@@ -17,3 +17,14 @@ This project is interesting because it needs to deal with
 a large variety of user interactions, check them against
 the movesets of different pieces, and also *look ahead* and
 *backtrack* to pick its own next move.
+
+## User Stories:
+1. As a user, I want to be able to play a game vs another user
+2. As a user, I want to be able to play a game vs the computer
+3. As a user, I want to add pieces to a list of pieces I captured
+4. As a user, I want to know how long I have left (timed mode)
+5. As a user, I want to know how many turns the game ended in
+6. As a user, I want to be able to get a list of my moves
+7. As a user, I want to be able to add my name to the leaderboard
+8. As a user, I want to be able to save my game for later
+9. As a user, I want to be able to load a game from before
