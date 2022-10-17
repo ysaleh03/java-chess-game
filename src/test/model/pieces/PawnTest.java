@@ -32,7 +32,6 @@ public class PawnTest {
         assertEquals(board.getPos(5, 3), pawn.getPosition());
     }
 
-    // edges
     @Test
     void getAvailablePositionLeftEdge() {
         Pawn pawn =  new Pawn(1, board, board.getPos(3, 0));

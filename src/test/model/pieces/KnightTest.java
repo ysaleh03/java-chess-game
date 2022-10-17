@@ -33,7 +33,6 @@ public class KnightTest {
         assertEquals(8, availPos.size());
     }
 
-    // edges
     @Test
     void getAvailablePositionsFromLeftEdge() {
         Knight knight =  new Knight(1, board, board.getPos(3, 0));
