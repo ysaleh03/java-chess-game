@@ -5,14 +5,17 @@ import model.Position;
 import model.pieces.Piece;
 import model.players.Player;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 // Tool that takes String input and returns Piece or Position,
 // allows user to select Pieces and Positions from board.
 public class MoveTool {
-    private static final List<Character> FILE_REFERENCES =
-            List.of(new Character[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}); // suggested by IntelliJ, from List.java
+    private static final ArrayList<Character> FILE_REFERENCES =
+            new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'));
+    // from stackoverflow
+    // https://stackoverflow.com/questions/1005073/initialization-of-an-arraylist-in-one-line
 
     private final Player human;
     private final Board board;
