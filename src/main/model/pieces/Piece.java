@@ -30,6 +30,9 @@ public abstract class Piece {
         this.color = color;
     }
 
+    // MODIFIES: this
+    // EFFECTS: generates and returns a list of positions that
+    //          this piece can be moved to
     public abstract ArrayList<Position> getAvailablePositions();
 
     // REQUIRES: deltaR, deltaF can only be
