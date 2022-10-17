@@ -33,6 +33,22 @@ public class PawnTest {
     }
 
     @Test
+    void getAvailablePositionLeftEdge() {
+        Pawn pawn =  new Pawn(1, board, board.getPos(3, 0));
+        board.getPos(3, 0).setPiece(pawn);
+        ArrayList<Position> availPos = pawn.getAvailablePositions();
+        assertEquals(2, availPos.size());
+    }
+
+    @Test
+    void getAvailablePositionRightEdge() {
+        Pawn pawn =  new Pawn(1, board, board.getPos(3, 7));
+        board.getPos(3, 7).setPiece(pawn);
+        ArrayList<Position> availPos = pawn.getAvailablePositions();
+        assertEquals(2, availPos.size());
+    }
+
+    @Test
     void getAvailablePositionsWhiteNeverMoved() {
         Pawn pawn =  new Pawn(1, board, board.getPos(6, 3));
         board.getPos(6, 3).setPiece(pawn);
@@ -70,6 +86,17 @@ public class PawnTest {
         board.getPos(2, 3).setPiece(friendRook);
         ArrayList<Position> availPos = pawn.getAvailablePositions();
         assertEquals(0, availPos.size());
+    }
+
+    @Test
+    void getAvailablePositionsCantTakeFriend() {
+        Pawn pawn =  new Pawn(1, board, board.getPos(3, 3));
+        board.getPos(3, 3).setPiece(pawn);
+        Rook friendRook =  new Rook(1, board, board.getPos(2, 2));
+        board.getPos(2, 2).setPiece(friendRook);
+        ArrayList<Position> availPos = pawn.getAvailablePositions();
+        assertEquals(2, availPos.size());
+        assertFalse(availPos.contains(board.getPos(2, 2)));
     }
 
     @Test

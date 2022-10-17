@@ -34,9 +34,33 @@ public class KnightTest {
     }
 
     @Test
-    void getAvailablePositionsFromEdge() {
-        Knight knight =  new Knight(1, board, board.getPos(4, 0));
-        board.getPos(4, 0).setPiece(knight);
+    void getAvailablePositionsFromLeftEdge() {
+        Knight knight =  new Knight(1, board, board.getPos(3, 0));
+        board.getPos(3, 0).setPiece(knight);
+        ArrayList<Position> availPos = knight.getAvailablePositions();
+        assertEquals(4, availPos.size());
+    }
+
+    @Test
+    void getAvailablePositionsFromRightEdge() {
+        Knight knight =  new Knight(1, board, board.getPos(3, 7));
+        board.getPos(3, 7).setPiece(knight);
+        ArrayList<Position> availPos = knight.getAvailablePositions();
+        assertEquals(4, availPos.size());
+    }
+
+    @Test
+    void getAvailablePositionsFromTopEdge() {
+        Knight knight =  new Knight(1, board, board.getPos(0, 3));
+        board.getPos(0, 3).setPiece(knight);
+        ArrayList<Position> availPos = knight.getAvailablePositions();
+        assertEquals(4, availPos.size());
+    }
+
+    @Test
+    void getAvailablePositionsFromBottomEdge() {
+        Knight knight =  new Knight(1, board, board.getPos(7, 3));
+        board.getPos(7, 3).setPiece(knight);
         ArrayList<Position> availPos = knight.getAvailablePositions();
         assertEquals(4, availPos.size());
     }
