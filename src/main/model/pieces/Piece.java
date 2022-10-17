@@ -40,7 +40,7 @@ public abstract class Piece {
     // MODIFIES: this
     //  EFFECTS: follows path of given directions,
     //           adding positions to availablePositions
-    //           until edge or other piece.
+    //           until edge or other piece are reached.
     protected void getPath(int deltaR, int deltaF) {
         int rank = position.getRank() + deltaR;
         int file = position.getFile() + deltaF;
@@ -59,7 +59,7 @@ public abstract class Piece {
     // MODIFIES: this
     //  EFFECTS: follows path of given directions,
     //           adding positions to availablePositions
-    //           until edge, other piece, or reps
+    //           until edge, other piece reached
     protected void getPathOnce(int deltaR, int deltaF) {
         int rank = position.getRank() + deltaR;
         int file = position.getFile() + deltaF;
