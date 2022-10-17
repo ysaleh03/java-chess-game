@@ -10,7 +10,6 @@ with or test new strategies.
 Some additional functionalities include:
 - saving the current board
 - loading a previously saved board
-- an optional timed mode
 - a leaderboard
 
 This project is interesting because it needs to deal with
@@ -33,3 +32,4 @@ the movesets of different pieces, and also *look ahead* and
 ## TODO:
 1. Implement Computer class
 2. Implement leaderboard
+3. Implement saving, loading
