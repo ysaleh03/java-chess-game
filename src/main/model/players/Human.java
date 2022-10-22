@@ -1,63 +1,39 @@
 package model.players;
 
+import exceptions.InvalidMoveException;
 import model.Position;
 import model.pieces.Piece;
-
-import java.util.ArrayList;
 
 // Human is a subclass of Player representing a human player,
 // holds the following information:
 // - the player's name
 // - the color the player is using
 // - the pieces the player captured
-public class Human implements Player {
-    private final String name;
-    private final int color;
-    private final ArrayList<Piece> capturedPieces;
-
-    // EFFECTS: Constructs a new Player with given name,
-    //          no captures, null board
+public class Human extends Player {
     public Human(String name, int color) {
-        this.name = name;
-        this.color = color;
-        this.capturedPieces = new ArrayList<>();
+        super(name, color);
     }
 
-    // MODIFIES: this, piece, pos
-    //  EFFECTS: if pos is in piece's availablePositions,
-    //           moves piece to pos true, else returns false
-    //           if pos already contains piece, removes it
-    //           and adds it to capturedPieces
+    // MODIFIES: this, pos1, pos2, board
+    //  EFFECTS: gets piece from pos1,
+    //           if pos2 is in piece's availablePositions, moves piece to pos2,
+    //           else throws InvalidMoveException.
+    //           if pos2 already contains a piece, removes it and adds it
+    //           to capturedPieces
     @Override
-    public boolean makeMove(Piece piece, Position pos) {
-        if (piece.getAvailablePositions().contains(pos)) {
-            if (pos.getPiece() != null) {
-                capturedPieces.add(pos.getPiece());
-                pos.removePiece();
+    public void makeMove(Position pos1, Position pos2) throws InvalidMoveException {
+        assert (this.board != null);
+        Piece piece = pos1.getPiece();
+        if (piece.getAvailablePositions(this.board, pos1).contains(pos2)) {
+            if (pos2.getPiece() != null) {
+                capturedPieces.add(pos2.getPiece());
+                pos2.removePiece();
             }
-            piece.getPosition().removePiece();
-            piece.setPosition(pos);
-            piece.setMoved();
-            pos.setPiece(piece);
-            return true;
+            piece.setMoved(true);
+            pos2.setPiece(piece);
+            pos1.removePiece();
         } else {
-            return false;
+            throw new InvalidMoveException();
         }
-    }
-
-    //Getters
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getColor() {
-        return color;
-    }
-
-    @Override
-    public ArrayList<Piece> getCaptures() {
-        return capturedPieces;
     }
 }

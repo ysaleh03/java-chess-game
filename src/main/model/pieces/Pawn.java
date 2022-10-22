@@ -8,8 +8,11 @@ import java.util.ArrayList;
 // Pawn is a subclass of Piece representing a King chess piece,
 // holds the same information as superclass
 public class Pawn extends Piece {
-    public Pawn(int color, Board board, Position position) {
-        super(color, board, position);
+    private int file;
+
+    public Pawn(int color) {
+        super(color);
+        type = "Pawn";
         if (color == 1) {
             icon = "♙";
         } else {
@@ -22,13 +25,14 @@ public class Pawn extends Piece {
     //           Pawn allowed to move 1 forward, take 1 forward+diagonal
     //           if !moved, can move 2 forward, no taking
     @Override
-    public ArrayList<Position> getAvailablePositions() {
+    public ArrayList<Position> getAvailablePositions(Board board, Position position) {
+        file = position.getFile();
         availablePositions.clear();
         availablePositions.add(board.getPos(position.getRank() - color, position.getFile()));
         if (!moved && availablePositions.get(0).getPiece() == null) {
             availablePositions.add(board.getPos(position.getRank() - (2 * color), position.getFile()));
         }
-        if (checkInvalid(availablePositions.get(0))) {
+        if (checkInvalid(availablePositions.get(0), board)) {
             availablePositions.clear();
         }
         if (position.getFile() < 7) {
@@ -37,17 +41,17 @@ public class Pawn extends Piece {
         if (position.getFile() > 0) {
             availablePositions.add(board.getPos(position.getRank() - color, position.getFile() - 1));
         }
-        availablePositions.removeIf(this::checkInvalid); //suggested by IntelliJ, from ArrayList.java, Predicate.java
+        availablePositions.removeIf(p -> checkInvalid(p, board)); //from ArrayList.java, Predicate.java
         return availablePositions;
     }
 
     // EFFECTS: if position in same file, returns true if empty,
     //          else returns true if occupied by enemy Piece.
     @Override
-    protected boolean checkInvalid(Position position) {
+    protected boolean checkInvalid(Position position, Board board) {
         int rank = position.getRank();
         int file = position.getFile();
-        if (this.position.getFile() != file) {
+        if (this.file != file) {
             return (board.getPos(rank, file).getPiece() == null
                     || board.getPos(rank, file).getPiece().getColor() == color);
         } else {

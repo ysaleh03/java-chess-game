@@ -1,5 +1,8 @@
 package ui.tools;
 
+import exceptions.EscapeException;
+import exceptions.InvalidPieceException;
+import exceptions.InvalidPositionException;
 import model.Board;
 import model.Position;
 import model.pieces.Piece;
@@ -7,6 +10,7 @@ import model.players.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 // Tool that takes String input and returns Piece or Position,
@@ -28,29 +32,54 @@ public class MoveTool {
     //  EFFECTS: asks user for a position reference,
     //           if it contains Piece, returns piece,
     //           else returns null
-    public Piece selectPiece() {
-        Piece piece = selectPosition("Select piece: ").getPiece();
+    public Position selectPiecePos() throws InvalidPieceException, InvalidPositionException {
+
+        Position position = selectPosition("Select piece: ");
+        Piece piece = position.getPiece();
 
         if (piece == null || piece.getColor() != human.getColor()) {
-            piece = selectPiece();
+            throw new InvalidPieceException();
         }
-        return piece;
+        return position;
     }
 
     // REQUIRES: scanner input is 2 characters long (letter, number)
     //  EFFECTS: uses scanner input to find corresponding
     //           Position, returns it
-    public Position selectPosition(String prompt) {
+    public Position selectPosition(String prompt) throws InvalidPositionException {
         Scanner scanner = new Scanner(System.in);
         System.out.print(prompt);
 
         String posRef = scanner.nextLine();
         posRef = posRef.toLowerCase();
 
+        if (posRef.length() == 0 && wantToEscape()) {
+            throw new EscapeException();
+        }
+
+        if (posRef.length() != 2) {
+            throw new InvalidPositionException();
+        }
+
         int rank = 8 - Character.getNumericValue(posRef.charAt(1)); // from geeksforgeeks.org, linked below
         // https://www.geeksforgeeks.org/java-program-to-convert-char-to-int/#:~:text=In%20Java%2C%20we%20can%20convert,getNumericValue(char)%20method.
         char fileChar = posRef.charAt(0);
-        int file = FILE_REFERENCES.indexOf(fileChar);
+
+        if (!FILE_REFERENCES.contains(fileChar) || rank < 0 || rank > 7) {
+            throw new InvalidPositionException();
+        }
+
+        int file = FILE_REFERENCES.indexOf(posRef.charAt(0));
+
         return board.getBoard()[rank][file];
+    }
+
+    // EFFECTS: Checks if user wants to end game
+    private boolean wantToEscape() {
+        System.out.println("Press Enter again to exit");
+        System.out.println("Input any value to cancel");
+        Scanner scanner = new Scanner(System.in);
+        String esc = scanner.nextLine();
+        return Objects.equals(esc, "");
     }
 }

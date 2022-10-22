@@ -6,8 +6,9 @@ import model.Position;
 import java.util.ArrayList;
 
 public class Bishop extends Piece {
-    public Bishop(int color, Board board, Position position) {
-        super(color, board, position);
+    public Bishop(int color) {
+        super(color);
+        type = "Bishop";
         if (color == 1) {
             icon = "♗";
         } else {
@@ -19,17 +20,17 @@ public class Bishop extends Piece {
     //  EFFECTS: generates and returns available Positions
     //           Bishop allowed to move any dist. diagonally
     @Override
-    public ArrayList<Position> getAvailablePositions() {
+    public ArrayList<Position> getAvailablePositions(Board board, Position position) {
         availablePositions.clear();
         // go NW
-        getPath(-1,-1);
+        getPath(-1,-1, board, position);
         // go NE
-        getPath(-1,1);
+        getPath(-1,1, board, position);
         // go SE
-        getPath(1,1);
+        getPath(1,1, board, position);
         // go SW
-        getPath(1,-1);
-        availablePositions.removeIf(this::checkInvalid); //suggested by IntelliJ, from ArrayList.java, Predicate.java
+        getPath(1,-1, board, position);
+        availablePositions.removeIf(p -> checkInvalid(p, board)); //from ArrayList.java, Predicate.java
         return availablePositions;
     }
 }

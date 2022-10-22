@@ -17,13 +17,13 @@ public class PositionTest {
 
     @Test
     void addPieceTest() {
-        position.setPiece(new Pawn(1, board, position));
+        position.setPiece(new Pawn(1));
         assertTrue(position.getPiece() instanceof Pawn);
     }
 
     @Test
     void removePieceTest() {
-        position.setPiece(new Pawn(1, board, position));
+        position.setPiece(new Pawn(1));
         position.removePiece();
         assertNull(position.getPiece());
     }

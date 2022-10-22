@@ -19,43 +19,43 @@ public class BishopTest {
 
     @Test
     void iconTest() {
-        Bishop whiteBishop =  new Bishop(1, board, board.getPos(3, 3));
-        Bishop blackBishop =  new Bishop(-1, board, board.getPos(4, 4));
+        Bishop whiteBishop =  new Bishop(1);
+        Bishop blackBishop =  new Bishop(-1);
         assertEquals("♗", whiteBishop.getIcon());
         assertEquals("♝", blackBishop.getIcon());
     }
 
     @Test
     void getAvailablePositionsFromCenter() {
-        Bishop bishop =  new Bishop(1, board, board.getPos(3, 3));
+        Bishop bishop =  new Bishop(1);
         board.getPos(3, 3).setPiece(bishop);
-        ArrayList<Position> availPos = bishop.getAvailablePositions();
+        ArrayList<Position> availPos = bishop.getAvailablePositions(board, board.getPos(3,3));
         assertEquals(13, availPos.size());
     }
 
     @Test
     void getAvailablePositionsFromEdge() {
-        Bishop bishop =  new Bishop(1, board, board.getPos(4, 0));
+        Bishop bishop =  new Bishop(1);
         board.getPos(4, 0).setPiece(bishop);
-        ArrayList<Position> availPos = bishop.getAvailablePositions();
+        ArrayList<Position> availPos = bishop.getAvailablePositions(board, board.getPos(4, 0));
         assertEquals(7, availPos.size());
     }
 
     @Test
     void getAvailablePositionsFromCorner() {
-        Bishop bishop =  new Bishop(1, board, board.getPos(0, 0));
+        Bishop bishop =  new Bishop(1);
         board.getPos(0, 0).setPiece(bishop);
-        ArrayList<Position> availPos = bishop.getAvailablePositions();
+        ArrayList<Position> availPos = bishop.getAvailablePositions(board, board.getPos(0, 0));
         assertEquals(7, availPos.size());
     }
 
     @Test
     void getAvailablePositionsWithFriend() {
-        Bishop bishop =  new Bishop(1, board, board.getPos(3, 3));
+        Bishop bishop =  new Bishop(1);
         board.getPos(3, 3).setPiece(bishop);
-        Pawn friendPawn =  new Pawn(1, board, board.getPos(2, 2));
+        Pawn friendPawn =  new Pawn(1);
         board.getPos(2, 2).setPiece(friendPawn);
-        ArrayList<Position> availPos = bishop.getAvailablePositions();
+        ArrayList<Position> availPos = bishop.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(10, availPos.size());
         assertFalse(availPos.contains(board.getPos(2, 2)));
         assertFalse(availPos.contains(board.getPos(1, 1)));
@@ -63,11 +63,11 @@ public class BishopTest {
 
     @Test
     void getAvailablePositionsWithEnemy() {
-        Bishop bishop =  new Bishop(1, board, board.getPos(3, 3));
+        Bishop bishop =  new Bishop(1);
         board.getPos(3, 3).setPiece(bishop);
-        Pawn enemyPawn =  new Pawn(-1, board, board.getPos(2, 2));
+        Pawn enemyPawn =  new Pawn(-1);
         board.getPos(2, 2).setPiece(enemyPawn);
-        ArrayList<Position> availPos = bishop.getAvailablePositions();
+        ArrayList<Position> availPos = bishop.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(11, availPos.size());
         assertTrue(availPos.contains(board.getPos(2, 2)));
         assertFalse(availPos.contains(board.getPos(1, 1)));

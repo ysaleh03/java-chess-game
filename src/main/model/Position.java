@@ -1,13 +1,15 @@
 package model;
 
 import model.pieces.Piece;
+import org.json.JSONObject;
+import persistence.Writable;
 
 // Represents a position/tile on a chess board
 // holds the following information:
 // - its rank (row)
 // - its file (column)
 // - the piece it contains
-public class Position {
+public class Position implements Writable {
     private final int rank; //row
     private final int file; //column
     private Piece piece; //content
@@ -41,5 +43,19 @@ public class Position {
 
     public Piece getPiece() {
         return piece;
+    }
+
+    // EFFECTS: turns position into JSONObject
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("rank", rank);
+        json.put("file", file);
+        if (piece != null) {
+            json.put("piece", piece.toJson());
+        } else {
+            json.put("piece", JSONObject.NULL);
+        }
+        return json;
     }
 }

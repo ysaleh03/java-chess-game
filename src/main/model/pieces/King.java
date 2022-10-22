@@ -8,8 +8,9 @@ import java.util.ArrayList;
 // King is a subclass of Piece representing a King chess piece,
 // holds the same information as superclass
 public class King extends Piece {
-    public King(int color, Board board, Position position) {
-        super(color, board, position);
+    public King(int color) {
+        super(color);
+        type = "King";
         if (color == 1) {
             icon = "♔";
         } else {
@@ -21,21 +22,21 @@ public class King extends Piece {
     //  EFFECTS: generates and returns available Positions
     //           King allowed to move 1 in any direction
     @Override
-    public ArrayList<Position> getAvailablePositions() {
+    public ArrayList<Position> getAvailablePositions(Board board, Position position) {
         availablePositions.clear();
         int rank = position.getRank();
         int file = position.getFile();
 
-        getPathOnce(-1,0); //N
-        getPathOnce(-1,1); //NE
-        getPathOnce(0,1); //E
-        getPathOnce(1, 1); //SE
-        getPathOnce(1,0); //S
-        getPathOnce(1,-1); //SW
-        getPathOnce(0,-1); //W
-        getPathOnce(-1,-1); //NW
+        getPathOnce(-1,0, board, position); //N
+        getPathOnce(-1,1, board, position); //NE
+        getPathOnce(0,1, board, position); //E
+        getPathOnce(1, 1, board, position); //SE
+        getPathOnce(1,0, board, position); //S
+        getPathOnce(1,-1, board, position); //SW
+        getPathOnce(0,-1, board, position); //W
+        getPathOnce(-1,-1, board, position); //NW
 
-        availablePositions.removeIf(this::checkInvalid); //suggested by IntelliJ, from ArrayList.java, Predicate.java
+        availablePositions.removeIf(p -> checkInvalid(p, board)); //from ArrayList.java, Predicate.java
         return availablePositions;
     }
 }

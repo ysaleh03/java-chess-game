@@ -19,45 +19,45 @@ public class QueenTest {
 
     @Test
     void iconTest() {
-        Queen whiteQueen =  new Queen(1, board, board.getPos(3, 3));
-        Queen blackQueen =  new Queen(-1, board, board.getPos(4, 4));
+        Queen whiteQueen =  new Queen(1);
+        Queen blackQueen =  new Queen(-1);
         assertEquals("♕", whiteQueen.getIcon());
         assertEquals("♛", blackQueen.getIcon());
     }
 
     @Test
     void getAvailablePositionsFromCenter() {
-        Queen queen =  new Queen(1, board, board.getPos(3, 3));
+        Queen queen =  new Queen(1);
         board.getPos(3, 3).setPiece(queen);
-        ArrayList<Position> availPos = queen.getAvailablePositions();
+        ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(27, availPos.size());
     }
 
     @Test
     void getAvailablePositionsFromEdge() {
-        Queen queen =  new Queen(1, board, board.getPos(4, 0));
+        Queen queen =  new Queen(1);
         board.getPos(4, 0).setPiece(queen);
-        ArrayList<Position> availPos = queen.getAvailablePositions();
+        ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(4, 0));
         assertEquals(21, availPos.size());
     }
 
     @Test
     void getAvailablePositionsFromCorner() {
-        Queen queen =  new Queen(1, board, board.getPos(0, 0));
+        Queen queen =  new Queen(1);
         board.getPos(0, 0).setPiece(queen);
-        ArrayList<Position> availPos = queen.getAvailablePositions();
+        ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(0, 0));
         assertEquals(21, availPos.size());
     }
 
     @Test
     void getAvailablePositionsWithTwoFriends() {
-        Queen queen =  new Queen(1, board, board.getPos(3, 3));
+        Queen queen =  new Queen(1);
         board.getPos(3, 3).setPiece(queen);
-        Pawn friendPawn =  new Pawn(1, board, board.getPos(2, 2));
+        Pawn friendPawn =  new Pawn(1);
         board.getPos(2, 2).setPiece(friendPawn);
-        Rook friendRook =  new Rook(1, board, board.getPos(3, 6));
+        Rook friendRook =  new Rook(1);
         board.getPos(3, 6).setPiece(friendRook);
-        ArrayList<Position> availPos = queen.getAvailablePositions();
+        ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(22, availPos.size());
         assertFalse(availPos.contains(board.getPos(1, 1)));
         assertFalse(availPos.contains(board.getPos(5, 6)));
@@ -65,11 +65,11 @@ public class QueenTest {
 
     @Test
     void getAvailablePositionsWithEnemy() {
-        Queen queen =  new Queen(1, board, board.getPos(3, 3));
+        Queen queen =  new Queen(1);
         board.getPos(3, 3).setPiece(queen);
-        Rook enemyRook =  new Rook(-1, board, board.getPos(3, 5));
+        Rook enemyRook =  new Rook(-1);
         board.getPos(3, 5).setPiece(enemyRook);
-        ArrayList<Position> availPos = queen.getAvailablePositions();
+        ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(25, availPos.size());
         assertTrue(availPos.contains(board.getPos(3, 5)));
     }

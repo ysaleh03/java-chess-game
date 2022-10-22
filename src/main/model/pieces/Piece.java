@@ -2,29 +2,27 @@ package model.pieces;
 
 import model.Board;
 import model.Position;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
 // Piece is an abstract representation of a chess piece on the board,
 // holds the following info:
-// - the board it is on
-// - its position on the board
 // - the positions it can move to (abstract)
 // - whether it has moved or not
 // - its color
 // - its icon
-public abstract class Piece {
-    protected final Board board;
-    protected Position position;
+// - its type
+public abstract class Piece implements Writable {
     protected ArrayList<Position> availablePositions;
     protected boolean moved;
     protected final int color; // 1 = white, -1 = black
     protected String icon;
+    protected String type;
 
     // EFFECTS: constructs a new piece
-    public Piece(int color, Board board, Position position) {
-        this.board = board;
-        this.position = position;
+    public Piece(int color) {
         this.availablePositions = new ArrayList<>();
         this.moved = false;
         this.color = color;
@@ -33,7 +31,7 @@ public abstract class Piece {
     // MODIFIES: this
     // EFFECTS: generates and returns a list of positions that
     //          this piece can be moved to
-    public abstract ArrayList<Position> getAvailablePositions();
+    public abstract ArrayList<Position> getAvailablePositions(Board board, Position position);
 
     // REQUIRES: deltaR, deltaF can only be
     //           -1, 0, or 1.
@@ -41,7 +39,7 @@ public abstract class Piece {
     //  EFFECTS: follows path of given directions,
     //           adding positions to availablePositions
     //           until edge or other piece are reached.
-    protected void getPath(int deltaR, int deltaF) {
+    protected void getPath(int deltaR, int deltaF, Board board, Position position) {
         int rank = position.getRank() + deltaR;
         int file = position.getFile() + deltaF;
         while (rank >= 0 && rank <= 7
@@ -60,7 +58,7 @@ public abstract class Piece {
     //  EFFECTS: follows path of given directions,
     //           adding positions to availablePositions
     //           until edge, other piece reached
-    protected void getPathOnce(int deltaR, int deltaF) {
+    protected void getPathOnce(int deltaR, int deltaF, Board board, Position position) {
         int rank = position.getRank() + deltaR;
         int file = position.getFile() + deltaF;
         if (rank >= 0 && rank <= 7 && file >= 0 && file <= 7) {
@@ -70,7 +68,7 @@ public abstract class Piece {
 
     // EFFECTS: returns true if given position is
     //          empty, or of the opposite color
-    protected boolean checkInvalid(Position position) {
+    protected boolean checkInvalid(Position position, Board board) {
         int rank = position.getRank();
         int file = position.getFile();
         return (board.getPos(rank, file).getPiece() != null
@@ -78,24 +76,27 @@ public abstract class Piece {
     }
 
     // Setters
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public void setMoved() {
-        this.moved = true;
+    public void setMoved(Boolean moved) {
+        this.moved = moved;
     }
 
     // Getters
-    public Position getPosition() {
-        return position;
-    }
-
     public int getColor() {
         return color;
     }
 
     public String getIcon() {
         return icon;
+    }
+
+    // EFFECTS: turns piece as JSONObject
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("moved", moved);
+        json.put("color", color);
+        json.put("icon", icon);
+        json.put("type", type);
+        return json;
     }
 }
