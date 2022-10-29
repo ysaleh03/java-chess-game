@@ -26,8 +26,4 @@ movesets of different pieces.
 7. As a user, I want to know how many turns my game ended in (done)
 8. As a user, I want to save my game for later (done)
 9. As a user, I want to load a game from earlier (done)
-10. As a user, I want to add my name to the leaderboard
-
-## TODO:
-2. Implement leaderboard
-3. Implement saving, loading
+10. As a user, I want to add my name to the leaderboard (done)
