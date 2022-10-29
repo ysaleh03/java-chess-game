@@ -31,7 +31,7 @@ public class SaveFileWriterTest extends JsonTest {
     @Test
     void illegalFileTest() {
         try {
-            SaveFileWriter fw = new SaveFileWriter(chessGame, "an\0illegal:File$Name");
+            SaveFileWriter.write(chessGame, "an\0illegal:File$Name");
             fail("IOException was expected");
         } catch (IOException e) {
             //pass
@@ -41,10 +41,9 @@ public class SaveFileWriterTest extends JsonTest {
     @Test
     void turn0Test() {
         try {
-            new SaveFileWriter(chessGame, "turn0Test");
-            SaveFileReader fr = new SaveFileReader("turn0Test");
+            SaveFileWriter.write(chessGame, "turn0Test");
 
-            ChessGame cg = fr.read();
+            ChessGame cg = SaveFileReader.read("turn0Test");
             Board mtBoard = new Board();
 
             assertEquals(0, cg.getTurns());
@@ -70,10 +69,9 @@ public class SaveFileWriterTest extends JsonTest {
             chessGame.incrementTurns();
             player1.makeMove(board[4][1], board[3][2]); //captures pawn!
 
-            new SaveFileWriter(chessGame, "turn2Test");
-            SaveFileReader fr = new SaveFileReader("turn2Test");
+            SaveFileWriter.write(chessGame, "turn2Test");
 
-            ChessGame cg = fr.read();
+            ChessGame cg = SaveFileReader.read("turn2Test");
             Board mtBoard = new Board();
 
             ArrayList<Piece> expectedCaptures = new ArrayList<>();
@@ -97,9 +95,8 @@ public class SaveFileWriterTest extends JsonTest {
         chessGame.checkMate();
 
         try {
-            new SaveFileWriter(chessGame, "wonGameTest");
-            SaveFileReader fr = new SaveFileReader("wonGameTest");
-            ChessGame cg = fr.read();
+            SaveFileWriter.write(chessGame, "wonGameTest");
+            ChessGame cg = SaveFileReader.read("wonGameTest");
             checkPlayer("Foo", 1, new ArrayList<>(), cg.getWinner());
         } catch (IOException e) {
             fail("Unexpected IOException");

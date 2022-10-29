@@ -1,9 +1,9 @@
-package ui.tools;
+package ui.util;
 
 import model.ChessGame;
 import model.Player;
 import model.Entry;
-import persistence.LeaderBoard;
+import persistence.LeaderBoardReader;
 import persistence.SaveFileReader;
 import persistence.SaveFileWriter;
 import ui.ChessGameApp;
@@ -13,12 +13,9 @@ import java.util.*;
 
 // Tool that displays main menu,
 // allows user to pick game mode and initialize game
-public class MenuTool {
+public final class MenuUtil {
 
-    //Placeholder constructor
-    private MenuTool() {
-        //nothing
-    }
+    private MenuUtil() {}
 
     // EFFECTS: displays main menu
     public static void mainMenu() {
@@ -90,10 +87,9 @@ public class MenuTool {
         System.out.print("Enter save file name: ./data/savefiles/");
         Scanner scanner = new Scanner(System.in);
         String saveFile = scanner.nextLine();
-        SaveFileReader fileReader = new SaveFileReader(saveFile);
 
         try {
-            chessGame = fileReader.read();
+            chessGame = SaveFileReader.read(saveFile);
             new ChessGameApp(chessGame);
         } catch (IOException e) {
             System.out.println("Could not read file");
@@ -127,7 +123,7 @@ public class MenuTool {
             System.out.print("Enter save file name: ");
             String fileName = scanner.nextLine();
             try {
-                new SaveFileWriter(chessGame, fileName);
+                SaveFileWriter.write(chessGame, fileName);
             } catch (IOException e) {
                 System.out.println("Unable to save");
             }
@@ -137,8 +133,7 @@ public class MenuTool {
     }
 
     private static void printLeaderBoard() {
-        LeaderBoard lb = new LeaderBoard();
-        ArrayList<Entry> leaderboard = lb.getLeaderBoard();
+        ArrayList<Entry> leaderboard = LeaderBoardReader.getLeaderBoard();
         System.out.println("\nLeaderboard\n");
         for (int i = 0; i < leaderboard.size(); i++) {
             String name = leaderboard.get(i).getName();

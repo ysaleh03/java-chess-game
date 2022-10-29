@@ -13,9 +13,8 @@ public class SaveFileReaderTest extends JsonTest {
 
     @Test
     void readNonExistentTest() {
-        SaveFileReader reader = new SaveFileReader("doesNotExist");
         try {
-            reader.read();
+            SaveFileReader.read("doesNotExist");
             fail("IOException expected");
         } catch (IOException e) {
             // pass
@@ -24,12 +23,11 @@ public class SaveFileReaderTest extends JsonTest {
 
     @Test
     void readFooBarTurn0Test() {
-        SaveFileReader reader = new SaveFileReader("FooBarTurn0");
         Board board = new Board();
         board.setDefaultBoard();
 
         try {
-            ChessGame chessGame = reader.read();
+            ChessGame chessGame = SaveFileReader.read("FooBarTurn0");
             checkPlayer("Foo", 1, new ArrayList<>(), chessGame.getPlayer1());
             checkPlayer("Bar", -1, new ArrayList<>(), chessGame.getPlayer2());
             checkBoard(board.getPositions(), chessGame.getBoard());
@@ -42,10 +40,8 @@ public class SaveFileReaderTest extends JsonTest {
 
     @Test
     void readCorruptedFileTest() {
-        SaveFileReader reader = new SaveFileReader("corruptedFileTest");
-
         try {
-            reader.read();
+            SaveFileReader.read("corruptedFileTest");
             fail("Expected an IOException");
         } catch (IOException e) {
             //pass

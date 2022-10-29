@@ -6,7 +6,7 @@ import model.Position;
 import model.pieces.Piece;
 import model.Player;
 import model.Entry;
-import persistence.LeaderBoard;
+import persistence.LeaderBoardWriter;
 import ui.exceptions.IllegalPieceException;
 import ui.exceptions.InvalidPieceException;
 import ui.exceptions.InvalidPositionException;
@@ -48,8 +48,7 @@ public class ChessGameApp {
         System.out.println("Check Mate");
         System.out.println(chessGame.getWinner().getName() + " wins!");
         System.out.println("This game lasted " + chessGame.getTurns());
-        LeaderBoard lb = new LeaderBoard();
-        lb.addEntry(new Entry(chessGame.getWinner().getName(), chessGame.getTurns()));
+        LeaderBoardWriter.addEntry(new Entry(chessGame.getWinner().getName(), chessGame.getTurns()));
     }
 
     // REQUIRES: turn is ±1
