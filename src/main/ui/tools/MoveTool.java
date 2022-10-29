@@ -1,12 +1,12 @@
 package ui.tools;
 
-import exceptions.EscapeException;
-import exceptions.InvalidPieceException;
-import exceptions.InvalidPositionException;
+import ui.exceptions.IllegalPieceException;
+import ui.exceptions.InvalidPieceException;
+import ui.exceptions.InvalidPositionException;
 import model.Board;
 import model.Position;
 import model.pieces.Piece;
-import model.players.Player;
+import model.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,13 +32,15 @@ public class MoveTool {
     //  EFFECTS: asks user for a position reference,
     //           if it contains Piece, returns piece,
     //           else returns null
-    public Position selectPiecePos() throws InvalidPieceException, InvalidPositionException {
+    public Position selectPiecePos() throws InvalidPieceException, InvalidPositionException, IllegalPieceException {
 
         Position position = selectPosition("Select piece: ");
         Piece piece = position.getPiece();
 
-        if (piece == null || piece.getColor() != human.getColor()) {
+        if (piece == null) {
             throw new InvalidPieceException();
+        } else if (piece.getColor() != human.getColor()) {
+            throw new IllegalPieceException();
         }
         return position;
     }
@@ -54,7 +56,7 @@ public class MoveTool {
         posRef = posRef.toLowerCase();
 
         if (posRef.length() == 0 && wantToEscape()) {
-            throw new EscapeException();
+            throw new RuntimeException();
         }
 
         if (posRef.length() != 2) {
@@ -71,15 +73,14 @@ public class MoveTool {
 
         int file = FILE_REFERENCES.indexOf(posRef.charAt(0));
 
-        return board.getBoard()[rank][file];
+        return board.getPositions()[rank][file];
     }
 
     // EFFECTS: Checks if user wants to end game
     private boolean wantToEscape() {
-        System.out.println("Press Enter again to exit");
-        System.out.println("Input any value to cancel");
+        System.out.print("\nEnter 1 to exit: ");
         Scanner scanner = new Scanner(System.in);
         String esc = scanner.nextLine();
-        return Objects.equals(esc, "");
+        return Objects.equals(esc, "1");
     }
 }

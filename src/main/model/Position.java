@@ -1,6 +1,8 @@
 package model;
 
+import model.pieces.Pawn;
 import model.pieces.Piece;
+import model.pieces.Queen;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -23,9 +25,17 @@ public class Position implements Writable {
         this.piece = null;
     }
 
-    // Setters
+    // MODIFIES: this
+    // EFFECT: sets this.piece to given piece, unless piece is a pawn
+    //         reaching other side, in which case promotes to queen
     public void setPiece(Piece piece) {
-        this.piece = piece;
+        if (rank == 0 && piece instanceof Pawn && piece.getColor() == 1) {
+            this.piece = new Queen(1);
+        } else if (rank == 7 && piece instanceof Pawn && piece.getColor() == -1) {
+            this.piece = new Queen(-1);
+        } else {
+            this.piece = piece;
+        }
     }
 
     public void removePiece() {

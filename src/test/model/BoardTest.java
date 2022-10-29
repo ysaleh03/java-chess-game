@@ -4,8 +4,6 @@ import model.pieces.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Type;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -18,10 +16,10 @@ public class BoardTest {
 
     @Test
     void emptyBoardTest() {
-        assertEquals(8, board.getBoard().length);
-        assertEquals(8, board.getBoard()[0].length);
+        assertEquals(8, board.getPositions().length);
+        assertEquals(8, board.getPositions()[0].length);
         boolean allEmpty = true;
-        for (Position[] rank : board.getBoard()) {
+        for (Position[] rank : board.getPositions()) {
             for (Position p : rank) {
                 if (p.getPiece() != null) {
                     allEmpty = false;
@@ -52,7 +50,7 @@ public class BoardTest {
         assertTrue(board.getPos(0,7).getPiece() instanceof Rook
                 && board.getPos(0,7).getPiece().getColor() == -1);
         boolean allPawns = true;
-        for (Position p : board.getBoard()[1]) {
+        for (Position p : board.getPositions()[1]) {
             if (!(p.getPiece() instanceof Pawn) || p.getPiece().getColor() != -1) {
                 allPawns = false;
                 break;
@@ -81,32 +79,12 @@ public class BoardTest {
         assertTrue(board.getPos(7,7).getPiece() instanceof Rook
                 && board.getPos(7,7).getPiece().getColor() == 1);
         boolean allPawns = true;
-        for (Position p : board.getBoard()[6]) {
+        for (Position p : board.getPositions()[6]) {
             if (!(p.getPiece() instanceof Pawn) || p.getPiece().getColor() != 1) {
                 allPawns = false;
                 break;
             }
         }
         assertTrue(allPawns);
-    }
-
-    @Test
-    void gameNotOver() {
-        board.setDefaultBoard();
-        assertFalse(board.checkMate());
-    }
-
-    @Test
-    void gameOverWhiteWins() {
-        board.setDefaultBoard();
-        board.getPos(0,4).removePiece();
-        assertTrue(board.checkMate());
-    }
-
-    @Test
-    void gameOverBlackWins() {
-        board.setDefaultBoard();
-        board.getPos(7,4).removePiece();
-        assertTrue(board.checkMate());
     }
 }

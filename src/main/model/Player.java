@@ -1,8 +1,6 @@
-package model.players;
+package model;
 
-import exceptions.InvalidMoveException;
-import model.Board;
-import model.Position;
+import model.exceptions.IllegalMoveException;
 import model.pieces.Piece;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +14,7 @@ import java.util.ArrayList;
 // - color (using)
 // - captured pieces
 // - board
-public abstract class Player implements Writable {
+public class Player implements Writable {
     protected final String name;
     protected final int color;
     protected final ArrayList<Piece> capturedPieces;
@@ -30,21 +28,39 @@ public abstract class Player implements Writable {
         this.capturedPieces = new ArrayList<>();
     }
 
+    // EFFECTS: Constructs a loaded Player with given name,
+    //          captures, null board
+    public Player(String name, int color, ArrayList<Piece> capturedPieces) {
+        this.name = name;
+        this.color = color;
+        this.capturedPieces = capturedPieces;
+    }
+
     // MODIFIES: this, pos1, pos2, board
     //  EFFECTS: gets piece from pos1,
     //           if pos2 is in piece's availablePositions, moves piece to pos2,
-    //           else throws InvalidMoveException.
+    //           else throws IllegalMoveException.
     //           if pos2 already contains a piece, removes it and adds it
     //           to capturedPieces
-    public abstract void makeMove(Position pos1, Position pos2) throws InvalidMoveException;
+    public void makeMove(Position pos1, Position pos2) throws IllegalMoveException {
+        assert (this.board != null);
+        Piece piece = pos1.getPiece();
+        if (piece.getAvailablePositions(this.board, pos1).contains(pos2)) {
+            if (pos2.getPiece() != null) {
+                capturedPieces.add(pos2.getPiece());
+                pos2.removePiece();
+            }
+            piece.setMoved(true);
+            pos2.setPiece(piece);
+            pos1.removePiece();
+        } else {
+            throw new IllegalMoveException();
+        }
+    }
 
     // Setters
     public void setBoard(Board board) {
         this.board = board;
-    }
-
-    public void setCapturedPieces(ArrayList<Piece> pieces) {
-        capturedPieces.addAll(pieces);
     }
 
     // Getters

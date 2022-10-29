@@ -10,16 +10,16 @@ import java.util.ArrayList;
 // Piece is an abstract representation of a chess piece on the board,
 // holds the following info:
 // - the positions it can move to (abstract)
-// - whether it has moved or not
 // - its color
+// - whether it has moved or not
 // - its icon
 // - its type
 public abstract class Piece implements Writable {
-    protected ArrayList<Position> availablePositions;
-    protected boolean moved;
+    protected String type;
     protected final int color; // 1 = white, -1 = black
     protected String icon;
-    protected String type;
+    protected boolean moved;
+    protected ArrayList<Position> availablePositions;
 
     // EFFECTS: constructs a new piece
     public Piece(int color) {
@@ -81,12 +81,20 @@ public abstract class Piece implements Writable {
     }
 
     // Getters
+    public String getType() {
+        return type;
+    }
+
     public int getColor() {
         return color;
     }
 
     public String getIcon() {
         return icon;
+    }
+
+    public boolean hasMoved() {
+        return moved;
     }
 
     // EFFECTS: turns piece as JSONObject

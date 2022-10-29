@@ -1,12 +1,12 @@
 package persistence;
 
 import model.Board;
+import model.ChessGame;
+import model.Player;
 import model.Position;
 import model.pieces.*;
-import model.players.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import ui.ChessGame;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,24 +16,24 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 // Represents a reader that reads workroom from JSON data stored in file
-public class FileReader {
+public class SaveFileReader {
     private static final String DIRECTORY = "./data/saves/";
 
     private final String path;
 
     // EFFECTS: constructs reader to read from source file
-    public FileReader(String fileName) {
-        this.path = DIRECTORY + fileName;
+    public SaveFileReader(String fileName) {
+        this.path = DIRECTORY + fileName + ".json";
     }
 
-    // EFFECT: reads the file at path, returns ChessGame object
+    // EFFECTS: reads the file at path, returns ChessGame object
     public ChessGame read() throws IOException {
         String jsonData = readFile(path);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseChessGame(jsonObject);
     }
 
-    // EFFECT: reads source file as string and returns it
+    // EFFECTS: reads source file as string and returns it
     // from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     private String readFile(String path) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
@@ -43,36 +43,37 @@ public class FileReader {
         return contentBuilder.toString();
     }
 
-    // EFFECT: parses JSONObject and returns ChessGame
+    // EFFECTS: parses JSONObject and returns ChessGame
     private ChessGame parseChessGame(JSONObject json) throws IOException {
         Player player1 = parsePlayer(json.getJSONObject("player1"));
         Player player2 = parsePlayer(json.getJSONObject("player2"));
         Board board = parseBoard(json.getJSONObject("board"));
         int turns = json.getInt("turns");
-        return new ChessGame(player1, player2, board, turns); // stub
+        Player winner = null;
+        if (json.has("winner")) {
+            winner = parsePlayer(json.getJSONObject("winner"));
+        }
+        return new ChessGame(player1, player2, board, turns, winner); // stub
     }
 
-    // EFFECT: parses JSONObject and returns Player
+    // EFFECTS: parses JSONObject and returns Player
     private Player parsePlayer(JSONObject json) throws IOException {
         String name = json.getString("name");
         int color = json.getInt("color");
 
-        Player player = new Human(name, color); //for now!!!
-
         JSONArray jsonCapturedPieces = json.getJSONArray("capturedPieces");
         ArrayList<Piece> capturedPieces = new ArrayList<>();
+
         if (jsonCapturedPieces.length() > 0) {
-            for (int i = 0; i <= jsonCapturedPieces.length(); i++) {
+            for (int i = 0; i < jsonCapturedPieces.length(); i++) {
                 JSONObject jsonPiece = jsonCapturedPieces.getJSONObject(i);
                 capturedPieces.add(parsePiece(jsonPiece));
             }
-            player.setCapturedPieces(capturedPieces);
         }
-
-        return player;
+        return new Player(name, color, capturedPieces);
     }
 
-    // EFFECT: parses JSONObject and returns Board
+    // EFFECTS: parses JSONObject and returns Board
     private Board parseBoard(JSONObject json) throws IOException {
         Position[][] board = new Position[8][8];
         JSONArray jsonBoard = json.getJSONArray("board");
@@ -87,11 +88,10 @@ public class FileReader {
             }
             board[r] = rank;
         }
-
         return new Board(board);
     }
 
-    // EFFECT: parses JSONObject and returns Position
+    // EFFECTS: parses JSONObject and returns Position
     private Position parsePosition(JSONObject json) throws IOException {
         int rank = json.getInt("rank");
         int file = json.getInt("file");
@@ -101,11 +101,10 @@ public class FileReader {
             Piece piece = parsePiece(json.getJSONObject("piece"));
             position.setPiece(piece);
         }
-
         return position;
     }
 
-    // EFFECT: parses JSONObject and returns Piece
+    // EFFECTS: parses JSONObject and returns Piece
     @SuppressWarnings("methodlength")
     private Piece parsePiece(JSONObject json) throws IOException {
         Piece piece;
@@ -131,7 +130,7 @@ public class FileReader {
                 piece = new Rook(color);
                 break;
             default:
-                throw new IOException("Can't read piece");
+                throw new IOException("Could not read piece");
         }
         piece.setMoved(json.getBoolean("moved"));
         return piece;

@@ -1,31 +1,27 @@
 package persistence;
 
+import model.ChessGame;
 import org.json.JSONObject;
-import ui.ChessGame;
 
 import java.io.*;
 
-public class FileWriter {
+public class SaveFileWriter {
     private static final String DIRECTORY = "./data/saves/";
 
     private PrintWriter writer;
     private final String path;
 
     // EFFECTS: constructs writer to write to destination file
-    public FileWriter(ChessGame chessGame, String fileName) {
-        this.path = DIRECTORY + fileName;
-        try {
-            open();
-            write(chessGame);
-            close();
-            System.out.println("Saved as " + fileName);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save");
-        }
+    public SaveFileWriter(ChessGame chessGame, String fileName) throws FileNotFoundException {
+        this.path = DIRECTORY + fileName + ".json";
+        open();
+        write(chessGame);
+        close();
+        System.out.println("Saved as " + fileName);
     }
 
     // MODIFIES: this
-    //  EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
+    //  EFFECTS: opens writer, throws FileNotFoundException if destination file cannot
     //           be opened for writing
     private void open() throws FileNotFoundException {
         writer = new PrintWriter(path);

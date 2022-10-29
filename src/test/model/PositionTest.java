@@ -1,13 +1,13 @@
 package model;
 
 import model.pieces.Pawn;
+import model.pieces.Queen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PositionTest {
-    private final Board board = new Board();
     private Position position;
 
     @BeforeEach
@@ -18,6 +18,36 @@ public class PositionTest {
     @Test
     void addPieceTest() {
         position.setPiece(new Pawn(1));
+        assertTrue(position.getPiece() instanceof Pawn);
+    }
+
+    @Test
+    void promoteWhitePawnTest() {
+        position = new Position(0,2);
+        position.setPiece(new Pawn(1));
+        assertTrue(position.getPiece() instanceof Queen);
+        assertEquals(1, position.getPiece().getColor());
+    }
+
+    @Test
+    void doNotPromoteWhitePawnTest() {
+        position = new Position(7,2);
+        position.setPiece(new Pawn(1));
+        assertTrue(position.getPiece() instanceof Pawn);
+    }
+
+    @Test
+    void promoteBlackPawnTest() {
+        position = new Position(7,2);
+        position.setPiece(new Pawn(-1));
+        assertTrue(position.getPiece() instanceof Queen);
+        assertEquals(-1, position.getPiece().getColor());
+    }
+
+    @Test
+    void doNotPromoteBlackPawnTest() {
+        position = new Position(0,2);
+        position.setPiece(new Pawn(-1));
         assertTrue(position.getPiece() instanceof Pawn);
     }
 
