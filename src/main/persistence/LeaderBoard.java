@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 // holding the top 5 winners with their turns,
 // in ascending order
 public class LeaderBoard {
-    private static final String PATH = "./data/leaderboard.json";
+    private static String path = "./data/leaderboard.json";
 
     // REQUIRES: turns > 0
     // MODIFIES: this
@@ -57,7 +57,7 @@ public class LeaderBoard {
     private static JSONArray readLeaderBoard() {
         StringBuilder contentBuilder = new StringBuilder();
         while (true) {
-            try (Stream<String> stream = Files.lines(Paths.get(PATH), StandardCharsets.UTF_8)) {
+            try (Stream<String> stream = Files.lines(Paths.get(path), StandardCharsets.UTF_8)) {
                 stream.forEach(contentBuilder::append);
                 break;
             } catch (IOException e) {
@@ -72,7 +72,7 @@ public class LeaderBoard {
     public static void writeLeaderBoard(ArrayList<Entry> entries) {
         PrintWriter writer;
         try {
-            writer = new PrintWriter(PATH);
+            writer = new PrintWriter(path);
         } catch (FileNotFoundException e) {
             throw new RuntimeException();
         }
@@ -82,5 +82,9 @@ public class LeaderBoard {
         }
         writer.print(json.toString(5));
         writer.close();
+    }
+
+    public static void setPath(String str) {
+        path = str;
     }
 }

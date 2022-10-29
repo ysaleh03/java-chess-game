@@ -43,7 +43,6 @@ public class Player implements Writable {
     //           if pos2 already contains a piece, removes it and adds it
     //           to capturedPieces
     public void makeMove(Position pos1, Position pos2) throws IllegalMoveException {
-        assert (this.board != null);
         Piece piece = pos1.getPiece();
         if (piece.getAvailablePositions(this.board, pos1).contains(pos2)) {
             if (pos2.getPiece() != null) {

@@ -64,6 +64,20 @@ public class LeaderBoardTest extends JsonTest {
     @Test
     void addEntrySameTurnsTest() {
         LeaderBoard.addEntry(ENTRY8);
+        checkEntry(ENTRY8.getName(), ENTRY8.getTurns(), LeaderBoard.getLeaderBoard().get(3));
+    }
+
+    @Test
+    void invalidLeaderBoardPathTest() {
+        LeaderBoard.setPath("./data/an\0illegal:File$Name");
+        try {
+            LeaderBoard.writeLeaderBoard(new ArrayList<>());
+            fail("Expected a RuntimeException");
+        } catch (RuntimeException e) {
+            //pass
+        } finally {
+            LeaderBoard.setPath("./data/leaderboard.json");
+        }
 
     }
 
@@ -71,5 +85,4 @@ public class LeaderBoardTest extends JsonTest {
     static void afterAll() {
         LeaderBoard.writeLeaderBoard(LEADERBOARD0);
     }
-
 }

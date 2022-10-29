@@ -46,10 +46,12 @@ public class ChessGame implements Writable {
         boolean blackKing = false;
         for (Position[] rank : this.board.getPositions()) {
             for (Position pos : rank) {
-                if (pos.getPiece() instanceof King && pos.getPiece().getColor() == 1) {
-                    whiteKing = true;
-                } else if (pos.getPiece() instanceof King && pos.getPiece().getColor() == -1) {
-                    blackKing = true;
+                if (pos.getPiece() instanceof King) {
+                    if (pos.getPiece().getColor() == 1) {
+                        whiteKing = true;
+                    } else {
+                        blackKing = true;
+                    }
                 }
             }
         }
