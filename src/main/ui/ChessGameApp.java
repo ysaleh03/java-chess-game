@@ -48,7 +48,8 @@ public class ChessGameApp {
         System.out.println("Check Mate");
         System.out.println(chessGame.getWinner().getName() + " wins!");
         System.out.println("This game lasted " + chessGame.getTurns());
-        LeaderBoard.addEntry(new Entry(chessGame.getWinner().getName(), chessGame.getTurns()));
+        LeaderBoard lb = new LeaderBoard();
+        lb.addEntry(new Entry(chessGame.getWinner().getName(), chessGame.getTurns()));
     }
 
     // REQUIRES: turn is ±1

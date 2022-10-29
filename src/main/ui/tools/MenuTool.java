@@ -15,6 +15,11 @@ import java.util.*;
 // allows user to pick game mode and initialize game
 public class MenuTool {
 
+    //Placeholder constructor
+    private MenuTool() {
+        //nothing
+    }
+
     // EFFECTS: displays main menu
     public static void mainMenu() {
         System.out.println("\nMain Menu");
@@ -132,7 +137,8 @@ public class MenuTool {
     }
 
     private static void printLeaderBoard() {
-        ArrayList<Entry> leaderboard = LeaderBoard.getLeaderBoard();
+        LeaderBoard lb = new LeaderBoard();
+        ArrayList<Entry> leaderboard = lb.getLeaderBoard();
         System.out.println("\nLeaderboard\n");
         for (int i = 0; i < leaderboard.size(); i++) {
             String name = leaderboard.get(i).getName();
