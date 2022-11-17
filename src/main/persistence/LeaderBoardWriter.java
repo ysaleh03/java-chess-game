@@ -20,7 +20,9 @@ public final class LeaderBoardWriter {
     //           based on turns, removes 6th entry
     public static void addEntry(Entry entry) {
         ArrayList<Entry> entries = LeaderBoardReader.getLeaderBoard();
-        entries.add(entry);
+        if (!entries.contains(entry)) {
+            entries.add(entry);
+        }
         entries.sort(Comparator.comparingInt(Entry::getTurns));
         if (entries.size() > 5) {
             entries.subList(5, entries.size() - 1).clear();

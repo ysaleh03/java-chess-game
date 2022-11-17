@@ -5,6 +5,7 @@ import model.Position;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.io.File;
 import java.util.ArrayList;
 
 // Piece is an abstract representation of a chess piece on the board,
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public abstract class Piece implements Writable {
     protected String type;
     protected final int color; // 1 = white, -1 = black
-    protected String icon;
+    protected String iconPath;
     protected boolean moved;
     protected ArrayList<Position> availablePositions;
 
@@ -89,8 +90,8 @@ public abstract class Piece implements Writable {
         return color;
     }
 
-    public String getIcon() {
-        return icon;
+    public String getIconPath() {
+        return iconPath;
     }
 
     public boolean hasMoved() {
@@ -103,7 +104,6 @@ public abstract class Piece implements Writable {
         JSONObject json = new JSONObject();
         json.put("moved", moved);
         json.put("color", color);
-        json.put("icon", icon);
         json.put("type", type);
         return json;
     }

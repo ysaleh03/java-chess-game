@@ -15,6 +15,8 @@ public class ChessGame implements Writable {
     private final Player player2;
     private final Board board;
     private int turns;
+    private int state; // one of: 0 - player1 selecting piece, 1 - player1 selecting position,
+                       //         2 - player2 selecting piece, 3 - player2 selecting position.
     private Player winner;
 
     // EFFECTS: Constructs a new ChessGame object
@@ -26,16 +28,18 @@ public class ChessGame implements Writable {
         this.player1.setBoard(board);
         this.player2.setBoard(board);
         this.turns = 0;
+        this.state = 0;
     }
 
     // EFFECTS: Constructs a ChessGame object from given parameters
-    public ChessGame(Player player1, Player player2, Board board, Integer turns, Player winner) {
+    public ChessGame(Player player1, Player player2, Board board, int turns, int state, Player winner) {
         this.player1 = player1;
         this.player2 = player2;
         this.board = board;
         this.player1.setBoard(board);
         this.player2.setBoard(board);
         this.turns = turns;
+        this.state = state;
         this.winner = winner;
     }
 
@@ -72,6 +76,22 @@ public class ChessGame implements Writable {
         turns++;
     }
 
+    public void incrementState() {
+        if (state >= 3) {
+            state = 0;
+        } else {
+            state++;
+        }
+    }
+
+    public void resetState() {
+        if (state <= 1) {
+            state = 0;
+        } else if (state <= 3) {
+            state = 2;
+        }
+    }
+
     //Getters
     public Player getPlayer1() {
         return player1;
@@ -89,6 +109,11 @@ public class ChessGame implements Writable {
         return turns;
     }
 
+
+    public int getState() {
+        return state;
+    }
+
     public Player getWinner() {
         return winner;
     }
@@ -100,9 +125,7 @@ public class ChessGame implements Writable {
         json.put("player2", player2.toJson());
         json.put("board", board.toJson());
         json.put("turns", turns);
-        if (winner != null) {
-            json.put("winner", winner.toJson());
-        }
+        json.put("state", state);
         return json;
     }
 }

@@ -6,6 +6,7 @@ import model.Player;
 import model.Position;
 import model.pieces.*;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -23,9 +24,13 @@ public final class SaveFileReader {
 
     // EFFECTS: reads the file at path, returns ChessGame object
     public static ChessGame read(String fileName) throws IOException {
-        String jsonData = readFile(DIRECTORY + fileName + ".json");
+        String jsonData = readFile(DIRECTORY + fileName);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseChessGame(jsonObject);
+        try {
+            return parseChessGame(jsonObject);
+        } catch (IOException | JSONException e) {
+            throw new IOException();
+        }
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -44,17 +49,14 @@ public final class SaveFileReader {
         Player player2 = parsePlayer(json.getJSONObject("player2"));
         Board board = parseBoard(json.getJSONObject("board"));
         int turns = json.getInt("turns");
+        int state = json.getInt("state");
         Player winner = null;
-        if (json.has("winner")) {
-            winner = parsePlayer(json.getJSONObject("winner"));
-        }
-        return new ChessGame(player1, player2, board, turns, winner); // stub
+        return new ChessGame(player1, player2, board, turns, state, winner); // stub
     }
 
     // EFFECTS: parses JSONObject and returns Player
     private static Player parsePlayer(JSONObject json) throws IOException {
         String name = json.getString("name");
-        int color = json.getInt("color");
 
         JSONArray jsonCapturedPieces = json.getJSONArray("capturedPieces");
         ArrayList<Piece> capturedPieces = new ArrayList<>();
@@ -65,7 +67,7 @@ public final class SaveFileReader {
                 capturedPieces.add(parsePiece(jsonPiece));
             }
         }
-        return new Player(name, color, capturedPieces);
+        return new Player(name, capturedPieces);
     }
 
     // EFFECTS: parses JSONObject and returns Board
@@ -125,7 +127,7 @@ public final class SaveFileReader {
                 piece = new Rook(color);
                 break;
             default:
-                throw new IOException("Could not read piece");
+                throw new IOException();
         }
         piece.setMoved(json.getBoolean("moved"));
         return piece;

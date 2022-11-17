@@ -3,6 +3,7 @@ package model.pieces;
 import model.Board;
 import model.Position;
 
+import java.io.File;
 import java.util.ArrayList;
 
 // Pawn is a subclass of Piece representing a King chess piece,
@@ -14,9 +15,9 @@ public class Pawn extends Piece {
         super(color);
         type = "Pawn";
         if (color == 1) {
-            icon = "♙";
+            iconPath = "./data/icons/pawnw.png";
         } else {
-            icon = "♟";
+            iconPath = "./data/icons/pawnb.png";
         }
     }
 

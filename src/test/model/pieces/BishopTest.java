@@ -21,8 +21,8 @@ public class BishopTest {
     void iconTest() {
         Bishop whiteBishop =  new Bishop(1);
         Bishop blackBishop =  new Bishop(-1);
-        assertEquals("♗", whiteBishop.getIcon());
-        assertEquals("♝", blackBishop.getIcon());
+        assertEquals("./data/icons/bishopw.png", whiteBishop.getIconPath());
+        assertEquals("./data/icons/bishopb.png", blackBishop.getIconPath());
     }
 
     @Test

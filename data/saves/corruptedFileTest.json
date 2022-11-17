@@ -1,14 +1,13 @@
 {
      "player1": {
-          "color": 1,
           "name": "Foo",
           "capturedPieces": []
      },
      "player2": {
-          "color": -1,
           "name": "Bar",
           "capturedPieces": []
      },
+     "state": 0,
      "board": {"board": [
           [
                {
@@ -16,8 +15,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♜",
-                         "type": "Book"
+                         "type": "THROW AN ERROR PLEASE"
                     },
                     "rank": 0
                },

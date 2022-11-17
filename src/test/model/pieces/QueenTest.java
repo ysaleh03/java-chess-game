@@ -21,8 +21,8 @@ public class QueenTest {
     void iconTest() {
         Queen whiteQueen =  new Queen(1);
         Queen blackQueen =  new Queen(-1);
-        assertEquals("♕", whiteQueen.getIcon());
-        assertEquals("♛", blackQueen.getIcon());
+        assertEquals("./data/icons/queenw.png", whiteQueen.getIconPath());
+        assertEquals("./data/icons/queenb.png", blackQueen.getIconPath());
     }
 
     @Test

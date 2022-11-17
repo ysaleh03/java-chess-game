@@ -27,9 +27,9 @@ public class SaveFileReaderTest extends JsonTest {
         board.setDefaultBoard();
 
         try {
-            ChessGame chessGame = SaveFileReader.read("FooBarTurn0");
-            checkPlayer("Foo", 1, new ArrayList<>(), chessGame.getPlayer1());
-            checkPlayer("Bar", -1, new ArrayList<>(), chessGame.getPlayer2());
+            ChessGame chessGame = SaveFileReader.read("FooBarTurn0.json");
+            checkPlayer("Foo", new ArrayList<>(), chessGame.getPlayer1());
+            checkPlayer("Bar", new ArrayList<>(), chessGame.getPlayer2());
             checkBoard(board.getPositions(), chessGame.getBoard());
             assertEquals(0, chessGame.getTurns());
             assertNull(chessGame.getWinner());
@@ -41,7 +41,7 @@ public class SaveFileReaderTest extends JsonTest {
     @Test
     void readCorruptedFileTest() {
         try {
-            SaveFileReader.read("corruptedFileTest");
+            SaveFileReader.read("corruptedFileTest.json");
             fail("Expected an IOException");
         } catch (IOException e) {
             //pass

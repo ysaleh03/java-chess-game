@@ -21,8 +21,8 @@ public class KingTest {
     void iconTest() {
         King whiteKing =  new King(1);
         King blackKing =  new King(-1);
-        assertEquals("♔", whiteKing.getIcon());
-        assertEquals("♚", blackKing.getIcon());
+        assertEquals("./data/icons/kingw.png", whiteKing.getIconPath());
+        assertEquals("./data/icons/kingb.png", blackKing.getIconPath());
     }
 
     @Test

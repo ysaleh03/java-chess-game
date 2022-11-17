@@ -3,6 +3,7 @@ package model.pieces;
 import model.Board;
 import model.Position;
 
+import java.io.File;
 import java.util.ArrayList;
 
 // King is a subclass of Piece representing a King chess piece,
@@ -12,9 +13,9 @@ public class King extends Piece {
         super(color);
         type = "King";
         if (color == 1) {
-            icon = "♔";
+            iconPath = "./data/icons/kingw.png";
         } else {
-            icon = "♚";
+            iconPath = "./data/icons/kingb.png";
         }
     }
 

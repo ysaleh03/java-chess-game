@@ -21,8 +21,8 @@ public class PawnTest {
     void iconTest() {
         Pawn whitePawn =  new Pawn(1);
         Pawn blackPawn =  new Pawn(-1);
-        assertEquals("♙", whitePawn.getIcon());
-        assertEquals("♟", blackPawn.getIcon());
+        assertEquals("./data/icons/pawnw.png", whitePawn.getIconPath());
+        assertEquals("./data/icons/pawnb.png", blackPawn.getIconPath());
     }
 
     @Test

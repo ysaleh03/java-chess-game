@@ -17,15 +17,13 @@ public abstract class JsonTest {
         assertEquals(turns, entry.getTurns());
     }
 
-    protected void checkPlayer(String name, int color, ArrayList<Piece> capturedPieces, Player player) {
+    protected void checkPlayer(String name, ArrayList<Piece> capturedPieces, Player player) {
         assertEquals(name, player.getName());
-        assertEquals(color, player.getColor());
         for (int i = 0; i < capturedPieces.size(); i++) {
             Piece expectedPiece = capturedPieces.get(i);
             Piece realPiece = player.getCapturedPieces().get(i);
             checkPiece(expectedPiece.getType(),
                     expectedPiece.getColor(),
-                    expectedPiece.getIcon(),
                     expectedPiece.hasMoved(),
                     realPiece);
         }
@@ -50,15 +48,13 @@ public abstract class JsonTest {
         if (positionPiece != null) {
             checkPiece(positionPiece.getType(),
                     positionPiece.getColor(),
-                    positionPiece.getIcon(),
                     positionPiece.hasMoved(), piece);
         }
     }
 
-    private void checkPiece(String type, int color, String icon, boolean moved, Piece piece) {
+    private void checkPiece(String type, int color, boolean moved, Piece piece) {
         assertEquals(type, piece.getType());
         assertEquals(color, piece.getColor());
-        assertEquals(icon, piece.getIcon());
         assertEquals(moved, piece.hasMoved());
     }
 }

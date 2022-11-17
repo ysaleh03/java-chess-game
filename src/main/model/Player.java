@@ -16,23 +16,20 @@ import java.util.ArrayList;
 // - board
 public class Player implements Writable {
     protected final String name;
-    protected final int color;
     protected final ArrayList<Piece> capturedPieces;
     protected Board board;
 
     // EFFECTS: Constructs a new Player with given name,
     //          no captures, null board
-    public Player(String name, int color) {
+    public Player(String name) {
         this.name = name;
-        this.color = color;
         this.capturedPieces = new ArrayList<>();
     }
 
     // EFFECTS: Constructs a loaded Player with given name,
     //          captures, null board
-    public Player(String name, int color, ArrayList<Piece> capturedPieces) {
+    public Player(String name, ArrayList<Piece> capturedPieces) {
         this.name = name;
-        this.color = color;
         this.capturedPieces = capturedPieces;
     }
 
@@ -67,20 +64,15 @@ public class Player implements Writable {
         return name;
     }
 
-    public int getColor() {
-        return color;
-    }
-
     public ArrayList<Piece> getCapturedPieces() {
         return capturedPieces;
     }
 
-    // EFFECTS: turns player as JSONObject
+    // EFFECTS: returns player as JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
-        json.put("color", color);
         json.put("capturedPieces", capturesToJson());
         return json;
     }

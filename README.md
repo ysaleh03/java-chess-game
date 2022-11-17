@@ -27,3 +27,19 @@ movesets of different pieces.
 8. As a user, I want to save my game for later (done)
 9. As a user, I want to load a game from earlier (done)
 10. As a user, I want to add my name to the leaderboard (done)
+
+## Instructions for Grader
+1. Select "Load Game"
+2. Select "FooBarTurn0.json"
+
+3. As player1, select the white pawn at c2 by clicking on it
+4. As player1, move the selected piece two squares forward by clicking on c4
+5. As player2, select the black pawn at d7 by clicking on it
+6. As player2, move the selected piece two squares forward by clicking on d5
+7. As player1, move the white pawn now at c4 to d5, taking the black pawn there
+8. Similarly, as player2, take that pawn with the black queen
+   * The taken pawns should appear at the bottom of the frame as they are taken
+
+9. Keep playing until you win, or close the frame
+10. A small dialogue box should pop up, prompting you to save. Click "Yes".
+11. Choose a name for the save, then click "Save"

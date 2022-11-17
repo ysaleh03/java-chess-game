@@ -17,7 +17,7 @@ public class PlayerTest {
 
     @BeforeEach
     void beforeEach() {
-        this.player = new Player("Foo", 1);
+        this.player = new Player("Foo");
         this.board = new Board();
         this.player.setBoard(this.board);
         this.friendPawn = new Pawn(1);
@@ -32,12 +32,11 @@ public class PlayerTest {
     @Test
     void newHumanTest() {
         assertEquals("Foo", player.getName());
-        assertEquals(1, player.getColor());
         assertEquals(0, player.getCapturedPieces().size());
     }
 
     @Test
-    void makeMoveNoTake() {
+    void makeMoveNoTakeTest() {
         Position newPos = board.getPos(2,3);
         try {
             player.makeMove(friendPos, newPos);
@@ -50,7 +49,7 @@ public class PlayerTest {
     }
 
     @Test
-    void makeMoveAndTake() {
+    void makeMoveAndTakeTest() {
         try {
             player.makeMove(friendPos, enemyPos);
         } catch (IllegalMoveException e) {
@@ -63,7 +62,7 @@ public class PlayerTest {
     }
 
     @Test
-    void makeInvalidMove() {
+    void makeInvalidMoveTest() {
         Position newPos = board.getPos(4, 3);
         try {
             player.makeMove(friendPos, newPos);

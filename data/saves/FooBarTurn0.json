@@ -1,14 +1,13 @@
 {
      "player1": {
-          "color": 1,
           "name": "Foo",
           "capturedPieces": []
      },
      "player2": {
-          "color": -1,
           "name": "Bar",
           "capturedPieces": []
      },
+     "state": 0,
      "board": {"board": [
           [
                {
@@ -16,7 +15,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♜",
+                         "icon": "BufferedImage@3c76a5: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 23 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Rook"
                     },
                     "rank": 0
@@ -26,7 +25,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♞",
+                         "icon": "BufferedImage@339046d9: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Knight"
                     },
                     "rank": 0
@@ -36,7 +35,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♝",
+                         "icon": "BufferedImage@1b9cfd3: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Bishop"
                     },
                     "rank": 0
@@ -46,7 +45,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♛",
+                         "icon": "BufferedImage@3776d2d7: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 27 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Queen"
                     },
                     "rank": 0
@@ -56,7 +55,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♚",
+                         "icon": "BufferedImage@637f1d40: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "King"
                     },
                     "rank": 0
@@ -66,7 +65,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♝",
+                         "icon": "BufferedImage@52683978: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Bishop"
                     },
                     "rank": 0
@@ -76,7 +75,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♞",
+                         "icon": "BufferedImage@1d60b3b1: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Knight"
                     },
                     "rank": 0
@@ -86,7 +85,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♜",
+                         "icon": "BufferedImage@1c813aa0: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 23 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Rook"
                     },
                     "rank": 0
@@ -98,7 +97,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♟",
+                         "icon": "BufferedImage@78fb16d: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 1
@@ -108,7 +107,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♟",
+                         "icon": "BufferedImage@14bffb1d: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 1
@@ -118,7 +117,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♟",
+                         "icon": "BufferedImage@c5a3f00: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 1
@@ -128,7 +127,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♟",
+                         "icon": "BufferedImage@191b5011: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 1
@@ -138,7 +137,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♟",
+                         "icon": "BufferedImage@63e58e86: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 1
@@ -148,7 +147,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♟",
+                         "icon": "BufferedImage@869e6f4: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 1
@@ -158,7 +157,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♟",
+                         "icon": "BufferedImage@55167ac6: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 1
@@ -168,7 +167,7 @@
                     "piece": {
                          "color": -1,
                          "moved": false,
-                         "icon": "♟",
+                         "icon": "BufferedImage@164e23ad: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 1
@@ -348,7 +347,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♙",
+                         "icon": "BufferedImage@59100e5c: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 6
@@ -358,7 +357,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♙",
+                         "icon": "BufferedImage@1e090dcc: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 6
@@ -368,7 +367,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♙",
+                         "icon": "BufferedImage@78af9481: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 6
@@ -378,7 +377,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♙",
+                         "icon": "BufferedImage@1f9b9372: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 6
@@ -388,7 +387,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♙",
+                         "icon": "BufferedImage@46a00c33: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 6
@@ -398,7 +397,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♙",
+                         "icon": "BufferedImage@10111e46: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 6
@@ -408,7 +407,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♙",
+                         "icon": "BufferedImage@149e8b59: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 6
@@ -418,7 +417,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♙",
+                         "icon": "BufferedImage@57dd9abb: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 20 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Pawn"
                     },
                     "rank": 6
@@ -430,7 +429,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♖",
+                         "icon": "BufferedImage@11dad5e7: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 23 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Rook"
                     },
                     "rank": 7
@@ -440,7 +439,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♘",
+                         "icon": "BufferedImage@9a11ab4: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Knight"
                     },
                     "rank": 7
@@ -450,7 +449,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♗",
+                         "icon": "BufferedImage@69058c9a: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Bishop"
                     },
                     "rank": 7
@@ -460,7 +459,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♕",
+                         "icon": "BufferedImage@5236db43: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 28 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Queen"
                     },
                     "rank": 7
@@ -470,7 +469,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♔",
+                         "icon": "BufferedImage@1584590f: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "King"
                     },
                     "rank": 7
@@ -480,7 +479,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♗",
+                         "icon": "BufferedImage@147195b1: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Bishop"
                     },
                     "rank": 7
@@ -490,7 +489,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♘",
+                         "icon": "BufferedImage@51d5baf9: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 25 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Knight"
                     },
                     "rank": 7
@@ -500,7 +499,7 @@
                     "piece": {
                          "color": 1,
                          "moved": false,
-                         "icon": "♖",
+                         "icon": "BufferedImage@355d9f43: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@70ab5bd5 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 23 height = 25 #numDataElements 4 dataOff[0] = 3",
                          "type": "Rook"
                     },
                     "rank": 7

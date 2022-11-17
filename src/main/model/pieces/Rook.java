@@ -3,6 +3,7 @@ package model.pieces;
 import model.Board;
 import model.Position;
 
+import java.io.File;
 import java.util.ArrayList;
 
 // Rook is a subclass of Piece representing a King chess piece,
@@ -13,9 +14,9 @@ public class Rook extends Piece {
         super(color);
         type = "Rook";
         if (color == 1) {
-            icon = "♖";
+            iconPath = "./data/icons/rookw.png";
         } else {
-            icon = "♜";
+            iconPath = "./data/icons/rookb.png";
         }
     }
 

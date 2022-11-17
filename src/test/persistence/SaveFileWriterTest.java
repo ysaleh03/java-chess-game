@@ -23,8 +23,8 @@ public class SaveFileWriterTest extends JsonTest {
 
     @BeforeEach
     void beforeEach() {
-        player1 = new Player("Foo", 1);
-        player2 = new Player("Bar", -1);
+        player1 = new Player("Foo");
+        player2 = new Player("Bar");
         chessGame = new ChessGame(player1, player2);
     }
 
@@ -43,12 +43,12 @@ public class SaveFileWriterTest extends JsonTest {
         try {
             SaveFileWriter.write(chessGame, "turn0Test");
 
-            ChessGame cg = SaveFileReader.read("turn0Test");
+            ChessGame cg = SaveFileReader.read("turn0Test.json");
             Board mtBoard = new Board();
 
             assertEquals(0, cg.getTurns());
-            checkPlayer("Foo",1, new ArrayList<>() ,cg.getPlayer1());
-            checkPlayer("Bar",-1, new ArrayList<>() ,cg.getPlayer2());
+            checkPlayer("Foo", new ArrayList<>() ,cg.getPlayer1());
+            checkPlayer("Bar", new ArrayList<>() ,cg.getPlayer2());
             checkBoard(mtBoard.getPositions(), cg.getBoard());
         } catch (IOException e) {
             fail("Unexpected IOException");
@@ -69,9 +69,12 @@ public class SaveFileWriterTest extends JsonTest {
             chessGame.incrementTurns();
             player1.makeMove(board[4][1], board[3][2]); //captures pawn!
 
+            chessGame.incrementState(); // state 1
+            chessGame.incrementState(); // state 2
+
             SaveFileWriter.write(chessGame, "turn2Test");
 
-            ChessGame cg = SaveFileReader.read("turn2Test");
+            ChessGame cg = SaveFileReader.read("turn2Test.json");
             Board mtBoard = new Board();
 
             ArrayList<Piece> expectedCaptures = new ArrayList<>();
@@ -79,8 +82,9 @@ public class SaveFileWriterTest extends JsonTest {
             expectedCaptures.get(0).setMoved(true);
 
             assertEquals(2, cg.getTurns());
-            checkPlayer("Foo",1, expectedCaptures, cg.getPlayer1());
-            checkPlayer("Bar",-1, new ArrayList<>(), cg.getPlayer2());
+            assertEquals(2, cg.getState());
+            checkPlayer("Foo", expectedCaptures, cg.getPlayer1());
+            checkPlayer("Bar", new ArrayList<>(), cg.getPlayer2());
             checkBoard(mtBoard.getPositions(), cg.getBoard());
         } catch (IllegalMoveException e) {
             fail("Unexpected IllegalMoveException");
@@ -89,17 +93,19 @@ public class SaveFileWriterTest extends JsonTest {
         }
     }
 
-    @Test
-    void wonGameTest() {
-        chessGame.getBoard().getPos(0,4).removePiece();
-        chessGame.checkMate();
+//    This test is no longer supported, saved games do not include winner anymore.
 
-        try {
-            SaveFileWriter.write(chessGame, "wonGameTest");
-            ChessGame cg = SaveFileReader.read("wonGameTest");
-            checkPlayer("Foo", 1, new ArrayList<>(), cg.getWinner());
-        } catch (IOException e) {
-            fail("Unexpected IOException");
-        }
-    }
+//    @Test
+//    void wonGameTest() {
+//        chessGame.getBoard().getPos(0,4).removePiece();
+//        chessGame.checkMate();
+//
+//        try {
+//            SaveFileWriter.write(chessGame, "wonGameTest");
+//            ChessGame cg = SaveFileReader.read("wonGameTest.json");
+//            checkPlayer("Foo", new ArrayList<>(), cg.getWinner());
+//        } catch (IOException e) {
+//            fail("Unexpected IOException");
+//        }
+//    }
 }

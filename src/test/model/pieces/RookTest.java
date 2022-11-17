@@ -21,8 +21,8 @@ public class RookTest {
     void iconTest() {
         Rook whiteRook =  new Rook(1);
         Rook blackRook =  new Rook(-1);
-        assertEquals("♖", whiteRook.getIcon());
-        assertEquals("♜", blackRook.getIcon());
+        assertEquals("./data/icons/rookw.png", whiteRook.getIconPath());
+        assertEquals("./data/icons/rookb.png", blackRook.getIconPath());
     }
 
     @Test

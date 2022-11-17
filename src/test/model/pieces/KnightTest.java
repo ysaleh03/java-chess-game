@@ -21,8 +21,8 @@ public class KnightTest {
     void iconTest() {
         Knight whiteKnight =  new Knight(1);
         Knight blackKnight =  new Knight(-1);
-        assertEquals("♘", whiteKnight.getIcon());
-        assertEquals("♞", blackKnight.getIcon());
+        assertEquals("./data/icons/knightw.png", whiteKnight.getIconPath());
+        assertEquals("./data/icons/knightb.png", blackKnight.getIconPath());
     }
 
     @Test

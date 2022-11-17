@@ -10,9 +10,9 @@ public class Bishop extends Piece {
         super(color);
         type = "Bishop";
         if (color == 1) {
-            icon = "♗";
+            iconPath = "./data/icons/bishopw.png";
         } else {
-            icon = "♝";
+            iconPath = "./data/icons/bishopb.png";
         }
     }
 
