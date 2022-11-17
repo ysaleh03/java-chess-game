@@ -1,10 +1,10 @@
 {
      "player1": {
-          "name": "Foo",
+          "name": "Grault",
           "capturedPieces": []
      },
      "player2": {
-          "name": "Bar",
+          "name": "Garply",
           "capturedPieces": []
      },
      "state": 0,
@@ -470,5 +470,5 @@
                }
           ]
      ]},
-     "turns": 0
+     "turns": 25
 }

@@ -120,6 +120,7 @@ public class ChessGame implements Writable {
 
     @Override
     public JSONObject toJson() {
+        resetState();
         JSONObject json = new JSONObject();
         json.put("player1", player1.toJson());
         json.put("player2", player2.toJson());

@@ -18,7 +18,6 @@ public final class SaveFileWriter {
         open(path);
         writeFile(chessGame, path);
         close();
-//        System.out.println("Saved as " + fileName);
     }
 
     // MODIFIES: this

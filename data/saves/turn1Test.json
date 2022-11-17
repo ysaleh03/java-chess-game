@@ -1,11 +1,7 @@
 {
      "player1": {
           "name": "Foo",
-          "capturedPieces": [{
-               "color": -1,
-               "moved": true,
-               "type": "Pawn"
-          }]
+          "capturedPieces": []
      },
      "player2": {
           "name": "Bar",
@@ -108,7 +104,11 @@
                },
                {
                     "file": 2,
-                    "piece": null,
+                    "piece": {
+                         "color": -1,
+                         "moved": false,
+                         "type": "Pawn"
+                    },
                     "rank": 1
                },
                {
@@ -212,11 +212,7 @@
                },
                {
                     "file": 2,
-                    "piece": {
-                         "color": 1,
-                         "moved": true,
-                         "type": "Pawn"
-                    },
+                    "piece": null,
                     "rank": 3
                },
                {
@@ -341,7 +337,11 @@
                },
                {
                     "file": 1,
-                    "piece": null,
+                    "piece": {
+                         "color": 1,
+                         "moved": false,
+                         "type": "Pawn"
+                    },
                     "rank": 6
                },
                {
@@ -474,5 +474,5 @@
                }
           ]
      ]},
-     "turns": 2
+     "turns": 1
 }

@@ -39,14 +39,39 @@ public class SaveFileWriterTest extends JsonTest {
     }
 
     @Test
-    void turn0Test() {
+    void state1Test() {
         try {
-            SaveFileWriter.write(chessGame, "turn0Test");
+            chessGame.incrementState();
 
-            ChessGame cg = SaveFileReader.read("turn0Test.json");
+            SaveFileWriter.write(chessGame, "state1Test");
+
+            ChessGame cg = SaveFileReader.read("state1Test.json");
             Board mtBoard = new Board();
 
             assertEquals(0, cg.getTurns());
+            assertEquals(0, cg.getState());
+            checkPlayer("Foo", new ArrayList<>() ,cg.getPlayer1());
+            checkPlayer("Bar", new ArrayList<>() ,cg.getPlayer2());
+            checkBoard(mtBoard.getPositions(), cg.getBoard());
+        } catch (IOException e) {
+            fail("Unexpected IOException");
+        }
+    }
+
+    @Test
+    void state3Test() {
+        try {
+            chessGame.incrementState();
+            chessGame.incrementState();
+            chessGame.incrementState();
+
+            SaveFileWriter.write(chessGame, "state3Test");
+
+            ChessGame cg = SaveFileReader.read("state3Test.json");
+            Board mtBoard = new Board();
+
+            assertEquals(0, cg.getTurns());
+            assertEquals(2, cg.getState());
             checkPlayer("Foo", new ArrayList<>() ,cg.getPlayer1());
             checkPlayer("Bar", new ArrayList<>() ,cg.getPlayer2());
             checkBoard(mtBoard.getPositions(), cg.getBoard());
@@ -69,9 +94,6 @@ public class SaveFileWriterTest extends JsonTest {
             chessGame.incrementTurns();
             player1.makeMove(board[4][1], board[3][2]); //captures pawn!
 
-            chessGame.incrementState(); // state 1
-            chessGame.incrementState(); // state 2
-
             SaveFileWriter.write(chessGame, "turn2Test");
 
             ChessGame cg = SaveFileReader.read("turn2Test.json");
@@ -82,7 +104,6 @@ public class SaveFileWriterTest extends JsonTest {
             expectedCaptures.get(0).setMoved(true);
 
             assertEquals(2, cg.getTurns());
-            assertEquals(2, cg.getState());
             checkPlayer("Foo", expectedCaptures, cg.getPlayer1());
             checkPlayer("Bar", new ArrayList<>(), cg.getPlayer2());
             checkBoard(mtBoard.getPositions(), cg.getBoard());

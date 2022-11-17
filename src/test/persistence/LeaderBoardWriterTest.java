@@ -55,6 +55,16 @@ public class LeaderBoardWriterTest extends JsonTest {
     }
 
     @Test
+    void addEntryAlreadyExists() {
+        LeaderBoardWriter.addEntry(ENTRY3);
+        Entry[] expected = {ENTRY1, ENTRY2, ENTRY3, ENTRY4, ENTRY5};
+        ArrayList<Entry> lb = LeaderBoardReader.getLeaderBoard();
+        for (int i = 0; i < lb.size() - 1; i++) {
+            checkEntry(expected[i].getName(), expected[i].getTurns(), lb.get(i));
+        }
+    }
+
+    @Test
     void invalidLeaderBoardPathTest() {
         LeaderBoardWriter.setPath("./data/an\0illegal:File$Name");
         try {
