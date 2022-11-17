@@ -85,9 +85,9 @@ public class ChessGame implements Writable {
     }
 
     public void resetState() {
-        if (state <= 1) {
+        if (state == 1) {
             state = 0;
-        } else if (state <= 3) {
+        } else if (state > 1) {
             state = 2;
         }
     }
