@@ -3,7 +3,8 @@ package persistence;
 import model.ChessGame;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 // Represents a writer that writes JSON representation of ChessGame to file at path
 public final class SaveFileWriter {

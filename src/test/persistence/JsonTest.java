@@ -2,9 +2,9 @@ package persistence;
 
 import model.Board;
 import model.Entry;
+import model.Player;
 import model.Position;
 import model.pieces.Piece;
-import model.Player;
 
 import java.util.ArrayList;
 

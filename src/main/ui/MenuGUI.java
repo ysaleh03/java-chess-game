@@ -9,26 +9,33 @@ import persistence.SaveFileReader;
 import ui.exceptions.ExitException;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 
 // GUI that displays menus,
 // allows user to pick game mode and initialize game.
 public final class MenuGUI extends JFrame {
     private static final CardLayout CARD_LAYOUT = new CardLayout();
-    private final JPanel cards;
+    private final JPanel contentPane;
+
+    private final MainMenu mainMenu;
+    private final NewGameMenu newGameMenu;
+    public final Leaderboard leaderboard;
 
     // EFFECTS: constructs a new MenuGUI JFrame allowing access to different menus.
     public MenuGUI() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        cards = setCards();
-        add(cards);
+        mainMenu = new MainMenu();
+        newGameMenu = new NewGameMenu();
+        leaderboard = new Leaderboard();
+
+        contentPane = contentPane();
+        add(contentPane);
         setTitle("Main Menu");
 
         pack();
@@ -38,73 +45,75 @@ public final class MenuGUI extends JFrame {
 
     // EFFECTS: creates a JPanel with Card Layout,
     //          with each "card" being a submenu.
-    private JPanel setCards() {
+    private JPanel contentPane() {
         JPanel cards = new JPanel();
         cards.setLayout(CARD_LAYOUT);
-        cards.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        cards.add(mainMenu(), "Main Menu");
-        cards.add(newGameMenu(), "New Game");
-        cards.add(leaderBoard(), "Leaderboard");
+        cards.add(mainMenu, "Main Menu");
+        cards.add(newGameMenu, "New Game");
+        cards.add(leaderboard, "Leaderboard");
         return cards;
     }
 
-    // EFFECTS: creates Main Menu, with buttons that switch to the other menus.
-    private JPanel mainMenu() {
-        JPanel mainMenu = new JPanel();
-        mainMenu.setLayout(new GridLayout(4,1));
+    // A main menu panel
+    private class MainMenu extends JPanel {
 
-        final JButton newGame = new JButton("New Game");
-        newGame.addActionListener(e -> switchMenu("New Game"));
+        // EFFECTS: constructs a main menu, with buttons that switch to the other menus.
+        private MainMenu() {
+            this.setLayout(new GridLayout(0, 1));
 
-        final JButton loadGame = new JButton("Load Game");
-        loadGame.addActionListener(e -> loadGame());
+            JButton newGame = new JButton("New Game");
+            newGame.addActionListener(e -> switchMenu("New Game"));
 
-        final JButton leaderboard = new JButton("Leaderboard");
-        leaderboard.addActionListener(e -> switchMenu("Leaderboard"));
+            JButton loadGame = new JButton("Load Game");
+            loadGame.addActionListener(e -> loadGame());
 
-        final JButton quit = new JButton();
-        quit.setText("Quit");
-        quit.addActionListener(e -> dispose());
+            JButton lbButton = new JButton("Leaderboard");
+            lbButton.addActionListener(e -> {
+                MenuGUI.this.leaderboard.update();
+                switchMenu("Leaderboard");
+            });
 
+            JButton quit = new JButton();
+            quit.setText("Quit");
+            quit.addActionListener(e -> dispose());
 
-        mainMenu.add(newGame);
-        mainMenu.add(loadGame);
-        mainMenu.add(leaderboard);
-        mainMenu.add(quit);
-        mainMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        return mainMenu;
+            this.add(newGame);
+            this.add(loadGame);
+            this.add(lbButton);
+            this.add(quit);
+        }
     }
 
-    // EFFECTS: displays a game setup menu, prompting user for the names of
-    //          the two players, then launches new game with given players.
-    private JPanel newGameMenu() {
-        JPanel newGameMenu = new JPanel();
-        newGameMenu.setLayout(new GridLayout(0,2));
+    // A new game panel
+    private class NewGameMenu extends JPanel {
 
-        newGameMenu.add(new JLabel("Player 1 name: "));
-        JTextField player1Name = new JTextField();
-        newGameMenu.add(player1Name);
+        // EFFECTS: constructs a game setup menu, prompting user for the names of
+        //          the two players, then launches new game with given players.
+        private NewGameMenu() {
+            this.setLayout(new GridLayout(0, 2));
 
-        newGameMenu.add(new JLabel("Player 2 name: "));
-        JTextField player2Name = new JTextField();
-        newGameMenu.add(player2Name);
+            this.add(new JLabel("Player 1 name: "));
+            JTextField player1Name = new JTextField();
+            this.add(player1Name);
 
-        JButton start = new JButton("Start");
-        start.addActionListener(e -> {
-            Player player1 = new Player(player1Name.getText());
-            Player player2 = new Player(player2Name.getText());
-            launchGame(new ChessGame(player1, player2));
-        });
+            this.add(new JLabel("Player 2 name: "));
+            JTextField player2Name = new JTextField();
+            this.add(player2Name);
 
-        JButton cancel = new JButton("Cancel");
-        cancel.addActionListener(e -> switchMenu("Main Menu"));
+            JButton start = new JButton("Start");
+            start.addActionListener(e -> {
+                Player player1 = new Player(player1Name.getText());
+                Player player2 = new Player(player2Name.getText());
+                launchGame(new ChessGame(player1, player2));
+            });
 
-        newGameMenu.add(start);
-        newGameMenu.add(cancel);
+            JButton cancel = new JButton("Cancel");
+            cancel.addActionListener(e -> switchMenu("Main Menu"));
 
-        return newGameMenu;
+            this.add(start);
+            this.add(cancel);
+        }
     }
 
     // EFFECTS: displays a file choosing menu, prompting user for a file,
@@ -125,34 +134,47 @@ public final class MenuGUI extends JFrame {
                 ChessGame chessGame = SaveFileReader.read(file.getName());
                 launchGame(chessGame);
             } catch (IOException | JSONException e) {
-                JOptionPane.showMessageDialog(null, "Unable to read file", "Loading Error",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Unable to read file",
+                        "Loading Error", JOptionPane.ERROR_MESSAGE);
                 loadGame();
             }
         }
     }
 
-    // EFFECTS: displays the leaderboard.
-    private JPanel leaderBoard() {
-        JPanel leaderboard = new JPanel();
-        leaderboard.setLayout(new BorderLayout());
+    // A leaderboard panel, containing a JList of entries
+    private class Leaderboard extends JPanel {
 
-        ArrayList<Entry> lb = LeaderBoardReader.getLeaderBoard();
-        DefaultListModel<String> lbModel = new DefaultListModel<>();
-
-        for (int i = 0; i < lb.size(); i++) {
-            String name = lb.get(i).getName();
-            int turns = lb.get(i).getTurns();
-            lbModel.add(i,(i + 1) + ". " + name + "\t\t" + turns);
+        private Leaderboard() {
+            this.setLayout(new BorderLayout());
+            setup();
         }
 
-        leaderboard.add(new JList<>(lbModel));
-        JButton cancel = new JButton("Cancel");
-        cancel.addActionListener(e -> switchMenu("Main Menu"));
+        // EFFECTS: constructs a new leaderboard.
+        private void setup() {
+            ArrayList<Entry> lb = LeaderBoardReader.getLeaderBoard();
+            DefaultListModel<String> listModel = new DefaultListModel<>();
 
-        leaderboard.add(cancel, BorderLayout.PAGE_END);
+            for (int i = 0; i < lb.size(); i++) {
+                listModel.add(i,lb.get(i).getName() + "\t\t\t" + lb.get(i).getTurns() + " turns");
+            }
 
-        return leaderboard;
+            JList<String> lbJList = new JList<>(listModel);
+
+            DefaultListCellRenderer renderer = (DefaultListCellRenderer) lbJList.getCellRenderer();
+            renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+            this.add(lbJList);
+            JButton cancel = new JButton("Cancel");
+            cancel.addActionListener(e -> switchMenu("Main Menu"));
+            this.add(cancel, BorderLayout.PAGE_END);
+        }
+
+        // this doesn't work...
+        private void update() {
+            this.setup();
+            this.revalidate();
+            this.repaint();
+        }
     }
 
     // EFFECTS: launches given ChessGame,
@@ -174,7 +196,7 @@ public final class MenuGUI extends JFrame {
     // EFFECTS: switches to given menu.
     private void switchMenu(String name) {
         setTitle(name);
-        CARD_LAYOUT.show(cards, name);
+        CARD_LAYOUT.show(contentPane, name);
     }
 
     // FROM LAB 6 SNAKE WITH BUGS

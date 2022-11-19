@@ -108,7 +108,7 @@ public final class ChessGameGUI extends JFrame {
         for (int i = 0; i < 8; i++) {
             color *= -1;
             for (int k = 0; k < 8; k++) {
-                JButton square = makeSquare(positions[i][k]);
+                Square square = new Square(positions[i][k]);
                 squares[i][k] = square;
                 if (positions[i][k].getPiece() != null) {
                     square.setIcon(new ImageIcon(positions[i][k].getPiece().getIconPath()));
@@ -124,49 +124,50 @@ public final class ChessGameGUI extends JFrame {
         return squares;
     }
 
-    // EFFECTS: returns a JButton that acts like a square.
-    private JButton makeSquare(Position position) {
-        JButton square = new JButton();
-        square.setMargin(new Insets(0, 0, 0, 0));
-        square.setContentAreaFilled(false);
-        square.setBorderPainted(false);
-        square.setFocusPainted(false);
-        square.setOpaque(true);
+    // A chessboard square
+    private class Square extends JButton {
 
-        square.addActionListener(a -> actionListener(position));
+        // EFFECTS: constructs a square.
+        private Square(Position position) {
+            this.setMargin(new Insets(0, 0, 0, 0));
+            this.setContentAreaFilled(false);
+            this.setBorderPainted(false);
+            this.setFocusPainted(false);
+            this.setOpaque(true);
 
-        return square;
-    }
+            this.addActionListener(a -> movePiece(position));
+        }
 
-    // MODIFIES: this
-    //  EFFECTS: if state 0: selects piece for player 1
-    //           if state 1: selects position for player 1,
-    //                       moves selected piece, changes title
-    //           if state 2: selects piece for player 2
-    //           if state 3: selects position for player 2,
-    //                       moves selected piece, changes title
-    //           increments state and updates every call.
-    private void actionListener(Position position) {
-        Position selectedPosition;
-        try {
-            if (chessGame.getState() == 0) {
-                chessGame.incrementTurns();
-                selectedPiecePos = MoveTool.selectPiecePos(1, position);
-            } else if (chessGame.getState() == 1) {
-                selectedPosition = MoveTool.selectPosition(1, position);
-                chessGame.getPlayer1().makeMove(selectedPiecePos, selectedPosition);
-            } else if (chessGame.getState() == 2) {
-                selectedPiecePos = MoveTool.selectPiecePos(-1, position);
-            } else if (chessGame.getState() == 3) {
-                selectedPosition = MoveTool.selectPosition(-1, position);
-                chessGame.getPlayer2().makeMove(selectedPiecePos, selectedPosition);
+        // MODIFIES: this
+        //  EFFECTS: if state 0: selects piece for player 1
+        //           if state 1: selects position for player 1,
+        //                       moves selected piece, changes title
+        //           if state 2: selects piece for player 2
+        //           if state 3: selects position for player 2,
+        //                       moves selected piece, changes title
+        //           increments state and updates every call.
+        private void movePiece(Position position) {
+            Position selectedPosition;
+            try {
+                if (chessGame.getState() == 0) {
+                    chessGame.incrementTurns();
+                    selectedPiecePos = MoveTool.selectPiecePos(1, position);
+                } else if (chessGame.getState() == 1) {
+                    selectedPosition = MoveTool.selectPosition(1, position);
+                    chessGame.getPlayer1().makeMove(selectedPiecePos, selectedPosition);
+                } else if (chessGame.getState() == 2) {
+                    selectedPiecePos = MoveTool.selectPiecePos(-1, position);
+                } else if (chessGame.getState() == 3) {
+                    selectedPosition = MoveTool.selectPosition(-1, position);
+                    chessGame.getPlayer2().makeMove(selectedPiecePos, selectedPosition);
+                }
+                chessGame.incrementState();
+                ChessGameGUI.this.update();
+            } catch (InvalidPieceException | IllegalPieceException e) {
+                // flash red maybe
+            } catch (InvalidPositionException | IllegalMoveException e) {
+                chessGame.resetState();
             }
-            chessGame.incrementState();
-            update();
-        } catch (InvalidPieceException | IllegalPieceException e) {
-            // flash red maybe
-        } catch (InvalidPositionException | IllegalMoveException e) {
-            chessGame.resetState();
         }
     }
 

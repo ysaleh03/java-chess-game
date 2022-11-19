@@ -3,7 +3,6 @@ package model.pieces;
 import model.Board;
 import model.Position;
 
-import java.io.File;
 import java.util.ArrayList;
 
 // Queen is a subclass of Piece representing a King chess piece,

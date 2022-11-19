@@ -1,6 +1,5 @@
 package model;
 
-import model.Player;
 import org.json.JSONObject;
 import persistence.Writable;
 

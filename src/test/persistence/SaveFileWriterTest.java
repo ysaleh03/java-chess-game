@@ -1,10 +1,10 @@
 package persistence;
 
-import model.exceptions.IllegalMoveException;
 import model.Board;
 import model.ChessGame;
 import model.Player;
 import model.Position;
+import model.exceptions.IllegalMoveException;
 import model.pieces.Pawn;
 import model.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class SaveFileWriterTest extends JsonTest {
     private Player player1;

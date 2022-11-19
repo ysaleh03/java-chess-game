@@ -5,7 +5,6 @@ import model.Position;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.io.File;
 import java.util.ArrayList;
 
 // Piece is an abstract representation of a chess piece on the board,
