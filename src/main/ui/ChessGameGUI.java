@@ -186,7 +186,6 @@ public final class ChessGameGUI extends JFrame {
             JOptionPane.showMessageDialog(this,
                     chessGame.getWinner().getName() + " wins!", "Checkmate",
                     JOptionPane.INFORMATION_MESSAGE);
-            LeaderBoardWriter.addEntry(new Entry(chessGame.getWinner().getName(), chessGame.getTurns()));
             saveDialogue();
         }
     }

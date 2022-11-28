@@ -55,6 +55,12 @@ public class Position implements Writable {
         return piece;
     }
 
+    // EFFECTS: returns position name in algebraic notation
+    public String getName() {
+        String[] letters = {"a", "b", "c", "d", "e", "f", "g", "h"};
+        return letters[file] + (8 - rank);
+    }
+
     // EFFECTS: turns position into JSONObject
     @Override
     public JSONObject toJson() {

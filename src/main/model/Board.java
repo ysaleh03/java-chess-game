@@ -64,8 +64,8 @@ public class Board implements Writable {
         return positions;
     }
 
-    public Position getPos(int rank, int field) {
-        return positions[rank][field];
+    public Position getPos(int rank, int file) {
+        return positions[rank][file];
     }
 
     // EFFECTS: turns board into JSONObject

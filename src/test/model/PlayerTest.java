@@ -1,19 +1,22 @@
 package model;
 
 import model.exceptions.IllegalMoveException;
+import model.pieces.EventTest;
 import model.pieces.Pawn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlayerTest {
+public class PlayerTest extends EventTest {
     private Player player;
     private Board board;
     private Position friendPos;
     private Position enemyPos;
     private Pawn friendPawn;
     private Pawn enemyPawn;
+
+    private final EventLog theLog = EventLog.getInstance();
 
     @BeforeEach
     void beforeEach() {
@@ -27,6 +30,8 @@ public class PlayerTest {
 
         friendPos.setPiece(friendPawn);
         enemyPos.setPiece(enemyPawn);
+
+        theLog.clear();
     }
 
     @Test
@@ -46,6 +51,8 @@ public class PlayerTest {
         assertNull(friendPos.getPiece());
         assertEquals(friendPawn, newPos.getPiece());
         assertEquals(0, player.getCapturedPieces().size());
+
+        checkEvent(1, "Foo moved d5 to d6");
     }
 
     @Test
@@ -59,6 +66,8 @@ public class PlayerTest {
         assertEquals(friendPawn, enemyPos.getPiece());
         assertEquals(1, player.getCapturedPieces().size());
         assertTrue(player.getCapturedPieces().contains(enemyPawn));
+
+        checkEvent(1,"Foo moved d5 to c6; captured piece (added to their capturedPieces)");
     }
 
     @Test

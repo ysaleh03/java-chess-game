@@ -43,3 +43,16 @@ movesets of different pieces.
 9. Keep playing until you win, or close the frame
 10. A small dialogue box should pop up, prompting you to save. Click "Yes".
 11. Choose a name for the save, then click "Save"
+12. Click Quit
+
+## Phase 4: Task 2
+>Sun Nov 27 21:27:53 PST 2022 </br>
+Saved game loaded on turn 0; players: Foo and Bar </br>
+Sun Nov 27 21:28:06 PST 2022 </br>
+Foo moved c2 to c4 </br>
+Sun Nov 27 21:28:13 PST 2022 </br>
+Bar moved d7 to d5 </br>
+Sun Nov 27 21:28:18 PST 2022 </br>
+Foo moved c4 to d5; captured piece (added to their capturedPieces) </br>
+Sun Nov 27 21:28:27 PST 2022 </br>
+Bar moved d8 to d5; captured piece (added to their capturedPieces) </br>

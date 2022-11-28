@@ -2,6 +2,7 @@ package model;
 
 import model.pieces.King;
 import org.json.JSONObject;
+import persistence.LeaderBoardWriter;
 import persistence.Writable;
 
 // Represents a game of chess,
@@ -19,6 +20,8 @@ public class ChessGame implements Writable {
                        //         2 - player2 selecting piece, 3 - player2 selecting position.
     private Player winner;
 
+    private final EventLog theLog = EventLog.getInstance();
+
     // EFFECTS: Constructs a new ChessGame object
     public ChessGame(Player player1, Player player2) {
         this.player1 = player1;
@@ -29,6 +32,8 @@ public class ChessGame implements Writable {
         this.player2.setBoard(board);
         this.turns = 0;
         this.state = 0;
+        theLog.logEvent(new Event("New game created; players: "
+                + player1.getName() + " and " + player2.getName()));
     }
 
     // EFFECTS: Constructs a ChessGame object from given parameters
@@ -41,6 +46,8 @@ public class ChessGame implements Writable {
         this.turns = turns;
         this.state = state;
         this.winner = winner;
+        theLog.logEvent(new Event("Saved game loaded on turn " + turns + "; players: "
+                + player1.getName() + " and " + player2.getName()));
     }
 
     //  EFFECTS: returns false if both kings on board,
@@ -64,6 +71,12 @@ public class ChessGame implements Writable {
         } else if (!blackKing) {
             winner = player1;
         }
+
+        if (!whiteKing || !blackKing) {
+            theLog.logEvent(new Event("Check mate! " + winner.getName() + " won in " + turns + " turns"));
+            LeaderBoardWriter.addEntry(new Entry(winner.getName(), turns));
+        }
+
         return !(whiteKing && blackKing);
     }
 

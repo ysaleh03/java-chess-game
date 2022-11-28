@@ -1,15 +1,18 @@
 package model;
 
+import model.pieces.EventTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ChessGameTest {
+public class ChessGameTest extends EventTest {
     private ChessGame chessGame;
     private Player player1;
     private Player player2;
     private Board defBoard;
+
+    private final EventLog theLog = EventLog.getInstance();
 
     @BeforeEach
     void beforeEach() {
@@ -17,15 +20,19 @@ public class ChessGameTest {
         player2 = new Player("Bar");
         defBoard = new Board();
         chessGame = new ChessGame(player1, player2);
+
+        theLog.clear();
     }
 
     @Test
     void newChessGameTest() {
-        assertEquals(player1, chessGame.getPlayer1());
-        assertEquals(player2, chessGame.getPlayer2());
-        assertNotEquals(defBoard, chessGame.getBoard());
-        assertEquals(0, chessGame.getTurns());
-        assertEquals(0, chessGame.getState());
+        ChessGame newGame = new ChessGame(player1, player2);
+        assertEquals(player1, newGame.getPlayer1());
+        assertEquals(player2, newGame.getPlayer2());
+        assertNotEquals(defBoard, newGame.getBoard());
+        assertEquals(0, newGame.getTurns());
+        assertEquals(0, newGame.getState());
+        checkEvent(1, "New game created; players: Foo and Bar");
     }
 
     @Test
@@ -37,6 +44,7 @@ public class ChessGameTest {
         assertEquals(3, chessGame.getTurns());
         assertEquals(2, chessGame.getState());
         assertNull(chessGame.getWinner());
+        checkEvent(1, "Saved game loaded on turn 3; players: Foo and Bar");
     }
 
     @Test
@@ -90,6 +98,7 @@ public class ChessGameTest {
         chessGame.getBoard().getPos(0,4).removePiece();
         assertTrue(chessGame.checkMate());
         assertEquals(player1, chessGame.getWinner());
+        checkEvent(1, "Check mate! Foo won in 0 turns");
     }
 
     @Test
@@ -97,6 +106,7 @@ public class ChessGameTest {
         chessGame.getBoard().getPos(7,4).removePiece();
         assertTrue(chessGame.checkMate());
         assertEquals(player2, chessGame.getWinner());
+        checkEvent(1, "Check mate! Bar won in 0 turns");
     }
 
     @Test

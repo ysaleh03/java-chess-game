@@ -15,9 +15,11 @@ import java.util.ArrayList;
 // - captured pieces
 // - board
 public class Player implements Writable {
-    protected final String name;
-    protected final ArrayList<Piece> capturedPieces;
-    protected Board board;
+    private final String name;
+    private final ArrayList<Piece> capturedPieces;
+    private Board board;
+
+    private final EventLog theLog = EventLog.getInstance();
 
     // EFFECTS: Constructs a new Player with given name,
     //          no captures, null board
@@ -40,11 +42,13 @@ public class Player implements Writable {
     //           if pos2 already contains a piece, removes it and adds it
     //           to capturedPieces
     public void makeMove(Position pos1, Position pos2) throws IllegalMoveException {
+        StringBuilder msg = new StringBuilder(name + " moved " + pos1.getName() + " to " + pos2.getName());
         Piece piece = pos1.getPiece();
         if (piece.getAvailablePositions(this.board, pos1).contains(pos2)) {
             if (pos2.getPiece() != null) {
                 capturedPieces.add(pos2.getPiece());
                 pos2.removePiece();
+                msg.append("; captured piece (added to their capturedPieces)");
             }
             piece.setMoved(true);
             pos2.setPiece(piece);
@@ -52,6 +56,7 @@ public class Player implements Writable {
         } else {
             throw new IllegalMoveException();
         }
+        theLog.logEvent(new Event(msg.toString()));
     }
 
     // Setters

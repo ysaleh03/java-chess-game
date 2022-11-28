@@ -2,6 +2,7 @@ package ui;
 
 import model.ChessGame;
 import model.Entry;
+import model.EventLog;
 import model.Player;
 import org.json.JSONException;
 import persistence.LeaderBoardReader;
@@ -11,6 +12,8 @@ import ui.exceptions.ExitException;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,11 +26,18 @@ public final class MenuGUI extends JFrame {
 
     private final MainMenu mainMenu;
     private final NewGameMenu newGameMenu;
-    public final Leaderboard leaderboard;
+    private final Leaderboard leaderboard;
 
     // EFFECTS: constructs a new MenuGUI JFrame allowing access to different menus.
     public MenuGUI() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                printLog();
+            }
+        });
+
         setResizable(false);
 
         mainMenu = new MainMenu();
@@ -76,7 +86,10 @@ public final class MenuGUI extends JFrame {
 
             JButton quit = new JButton();
             quit.setText("Quit");
-            quit.addActionListener(e -> dispose());
+            quit.addActionListener(e -> {
+                dispose();
+                printLog();
+            });
 
             this.add(newGame);
             this.add(loadGame);
@@ -197,6 +210,13 @@ public final class MenuGUI extends JFrame {
     private void switchMenu(String name) {
         setTitle(name);
         CARD_LAYOUT.show(contentPane, name);
+    }
+
+    // EFFECTS: prints log
+    private void printLog() {
+        for (model.Event e : EventLog.getInstance()) {
+            System.out.println(e.toString());
+        }
     }
 
     // FROM LAB 6 SNAKE WITH BUGS

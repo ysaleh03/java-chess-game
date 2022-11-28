@@ -22,6 +22,11 @@ public class PositionTest {
     }
 
     @Test
+    void getNameTest() {
+        assertEquals("d5", position.getName());
+    }
+
+    @Test
     void promoteWhitePawnTest() {
         position = new Position(0,2);
         position.setPiece(new Pawn(1));
