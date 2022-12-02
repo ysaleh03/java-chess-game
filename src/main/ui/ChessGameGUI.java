@@ -1,12 +1,10 @@
 package ui;
 
 import model.ChessGame;
-import model.Entry;
 import model.Player;
 import model.Position;
 import model.exceptions.IllegalMoveException;
 import model.pieces.Piece;
-import persistence.LeaderBoardWriter;
 import persistence.SaveFileWriter;
 import ui.exceptions.ExitException;
 import ui.exceptions.IllegalPieceException;

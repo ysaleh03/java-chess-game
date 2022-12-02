@@ -55,4 +55,10 @@ Bar moved d7 to d5 </br>
 Sun Nov 27 21:28:18 PST 2022 </br>
 Foo moved c4 to d5; captured piece (added to their capturedPieces) </br>
 Sun Nov 27 21:28:27 PST 2022 </br>
-Bar moved d8 to d5; captured piece (added to their capturedPieces) </br>
+Bar moved d8 to d5; captured piece (added to their capturedPieces) </br> 
+
+## Phase 4: Task 3
+- I could have gotten rid of the Writable interface, 
+  since I had to implement toJSON separately anyway, and Writable is never passed as a parameter.
+- My exceptions are currently in two separate packages within model and ui, I would move them into
+  one package in the root folder, and split them inside instead.
