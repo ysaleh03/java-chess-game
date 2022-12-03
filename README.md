@@ -62,4 +62,6 @@ Bar moved d8 to d5; captured piece (added to their capturedPieces) </br>
   since I had to implement toJSON separately anyway, and Writable is never passed as a parameter.
 - My exceptions are currently in two separate packages within model and ui, I would move them into
   one package in the root folder, and split them inside instead.
-- There is some inconsistency with the naming of leaderboard-related things (Leaderboard/LeaderBoard)
+- There is some inconsistency with the naming of leaderboard-related things (Leaderboard/LeaderBoard).
+- After implementing the GUI, MoveTool no longer involved any direct user input, 
+  so it could have been moved to the model package.
