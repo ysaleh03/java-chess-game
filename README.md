@@ -1,5 +1,4 @@
-# Chess
-## Chess Engine
+# Chess Engine
 
 This application is a chess game, where users have the
 option to play against one another. It can be used by 
