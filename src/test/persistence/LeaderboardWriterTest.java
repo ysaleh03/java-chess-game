@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class LeaderBoardWriterTest extends JsonTest {
-    private static final ArrayList<Entry> LEADERBOARD0 = LeaderBoardReader.getLeaderBoard(); // original leaderboard
+public class LeaderboardWriterTest extends JsonTest {
+    private static final ArrayList<Entry> LEADERBOARD0 = LeaderboardReader.getLeaderBoard(); // original leaderboard
     private static final Entry ENTRY1 = new Entry("Foo", 8);
     private static final Entry ENTRY2 = new Entry("Bar", 9);
     private static final Entry ENTRY3 = new Entry("Baz", 10);
@@ -22,19 +22,19 @@ public class LeaderBoardWriterTest extends JsonTest {
 
     @BeforeEach
     void beforeEach() {
-        LeaderBoardWriter.writeLeaderBoard(new ArrayList<>()); //creates blank leaderboard
-        LeaderBoardWriter.addEntry(ENTRY1);
-        LeaderBoardWriter.addEntry(ENTRY2);
-        LeaderBoardWriter.addEntry(ENTRY3);
-        LeaderBoardWriter.addEntry(ENTRY4);
-        LeaderBoardWriter.addEntry(ENTRY5);
+        LeaderboardWriter.writeLeaderBoard(new ArrayList<>()); //creates blank leaderboard
+        LeaderboardWriter.addEntry(ENTRY1);
+        LeaderboardWriter.addEntry(ENTRY2);
+        LeaderboardWriter.addEntry(ENTRY3);
+        LeaderboardWriter.addEntry(ENTRY4);
+        LeaderboardWriter.addEntry(ENTRY5);
     }
 
     @Test
     void addEntryTooHighTest() {
-        LeaderBoardWriter.addEntry(ENTRY6);
+        LeaderboardWriter.addEntry(ENTRY6);
         Entry[] expected = {ENTRY1, ENTRY2, ENTRY3, ENTRY4, ENTRY5};
-        ArrayList<Entry> lb = LeaderBoardReader.getLeaderBoard();
+        ArrayList<Entry> lb = LeaderboardReader.getLeaderBoard();
         for (int i = 0; i < lb.size() - 1; i++) {
             checkEntry(expected[i].getName(), expected[i].getTurns(), lb.get(i));
         }
@@ -42,21 +42,21 @@ public class LeaderBoardWriterTest extends JsonTest {
 
     @Test
     void addEntryInBetweenTest() {
-        LeaderBoardWriter.addEntry(ENTRY7);
-        checkEntry(ENTRY7.getName(), ENTRY7.getTurns(), LeaderBoardReader.getLeaderBoard().get(4));
+        LeaderboardWriter.addEntry(ENTRY7);
+        checkEntry(ENTRY7.getName(), ENTRY7.getTurns(), LeaderboardReader.getLeaderBoard().get(4));
     }
 
     @Test
     void addEntrySameTurnsTest() {
-        LeaderBoardWriter.addEntry(ENTRY8);
-        checkEntry(ENTRY8.getName(), ENTRY8.getTurns(), LeaderBoardReader.getLeaderBoard().get(3));
+        LeaderboardWriter.addEntry(ENTRY8);
+        checkEntry(ENTRY8.getName(), ENTRY8.getTurns(), LeaderboardReader.getLeaderBoard().get(3));
     }
 
     @Test
     void addEntryAlreadyExists() {
-        LeaderBoardWriter.addEntry(ENTRY3);
+        LeaderboardWriter.addEntry(ENTRY3);
         Entry[] expected = {ENTRY1, ENTRY2, ENTRY3, ENTRY4, ENTRY5};
-        ArrayList<Entry> lb = LeaderBoardReader.getLeaderBoard();
+        ArrayList<Entry> lb = LeaderboardReader.getLeaderBoard();
         for (int i = 0; i < lb.size() - 1; i++) {
             checkEntry(expected[i].getName(), expected[i].getTurns(), lb.get(i));
         }
@@ -64,19 +64,19 @@ public class LeaderBoardWriterTest extends JsonTest {
 
     @Test
     void invalidLeaderBoardPathTest() {
-        LeaderBoardWriter.setPath("./data/an\0illegal:File$Name");
+        LeaderboardWriter.setPath("./data/an\0illegal:File$Name");
         try {
-            LeaderBoardWriter.writeLeaderBoard(new ArrayList<>());
+            LeaderboardWriter.writeLeaderBoard(new ArrayList<>());
             fail("Expected a RuntimeException");
         } catch (RuntimeException e) {
             //pass
         } finally {
-            LeaderBoardWriter.setPath("./data/leaderboard.json");
+            LeaderboardWriter.setPath("./data/leaderboard.json");
         }
     }
 
     @AfterAll
     static void afterAll() {
-        LeaderBoardWriter.writeLeaderBoard(LEADERBOARD0);
+        LeaderboardWriter.writeLeaderBoard(LEADERBOARD0);
     }
 }

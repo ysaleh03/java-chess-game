@@ -5,9 +5,18 @@ import model.Position;
 
 import java.util.ArrayList;
 
-// Queen is a subclass of Piece representing a King chess piece,
-// holds the same information as superclass
+/**
+ * The {@code Queen} class represents a queen chess piece, extends {@link model.pieces.Piece}.
+ * @see model.pieces.Piece
+ * @author Youssef Saleh
+ */
 public class Queen extends Piece {
+    /**
+     * Constructs a new unmoved queen of the given color
+     * @param color The color of the queen
+     *              <p>white = 1
+     *              <p>black = -1
+     */
     public Queen(int color) {
         super(color);
         type = "Queen";
@@ -18,9 +27,11 @@ public class Queen extends Piece {
         }
     }
 
-    // MODIFIES: this
-    //  EFFECTS: generates and returns available Positions
-    //           Queen allowed to move any dist. in all directions
+    /**
+     * {@inheritDoc}
+     * <p></p>
+     * Able to move any number of squares in a straight or diagonal line, until it reaches an edge or obstacle.
+     */
     @Override
     public ArrayList<Position> getAvailablePositions(Board board, Position position) {
         availablePositions.clear();

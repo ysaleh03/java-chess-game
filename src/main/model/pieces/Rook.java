@@ -7,8 +7,18 @@ import java.util.ArrayList;
 
 // Rook is a subclass of Piece representing a King chess piece,
 // holds the same information as superclass
+/**
+ * The {@code Rook} class represents a rook chess piece, extends {@link model.pieces.Piece}.
+ * @see model.pieces.Piece
+ * @author Youssef Saleh
+ */
 public class Rook extends Piece {
-
+    /**
+     * Constructs a new unmoved rook of the given color
+     * @param color The color of the rook
+     *              <p>white = 1
+     *              <p>black = -1
+     */
     public Rook(int color) {
         super(color);
         type = "Rook";
@@ -22,6 +32,11 @@ public class Rook extends Piece {
     // MODIFIES: this
     //  EFFECTS: generates and returns available Positions
     //           Rook allowed to move any dist. vertical/horizontal
+    /**
+     * {@inheritDoc}
+     * <p></p>
+     * Able to move in a straight line in any direction, for any number of squares, until it reaches an edge or obstacle.
+     */
     @Override
     public ArrayList<Position> getAvailablePositions(Board board, Position position) {
         availablePositions.clear();

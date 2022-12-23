@@ -6,28 +6,31 @@ import model.pieces.Queen;
 import org.json.JSONObject;
 import persistence.Writable;
 
-// Represents a position/tile on a chess board
-// holds the following information:
-// - its rank (row)
-// - its file (column)
-// - the piece it contains
+/**
+ * The {@code Position} class represents a square on the chess board, identified by its rank and file.
+ * Can contain up to one piece.
+ */
 public class Position implements Writable {
     private final int rank; //row
     private final int file; //column
     private Piece piece; //content
 
-    // REQUIRES: r, f in [0,7]
-    //  EFFECTS: constructs an empty Position
-    //           with rank r, file f
+    /**
+     * Constructs an empty position at the given rank and file.
+     * @param rank integer between 0 and 7
+     * @param file integer between 0 and 7
+     */
     public Position(int rank, int file) {
         this.rank = rank;
         this.file = file;
         this.piece = null;
     }
 
-    // MODIFIES: this
-    // EFFECT: sets this.piece to given piece, unless piece is a pawn
-    //         reaching other side, in which case promotes to queen
+    /**
+     * Places given piece in this position.
+     * <p> If piece is a pawn eligible for promotion, places queen instead.
+     * @param piece piece being placed
+     */
     public void setPiece(Piece piece) {
         if (rank == 0 && piece instanceof Pawn && piece.getColor() == 1) {
             this.piece = new Queen(1);
@@ -38,30 +41,47 @@ public class Position implements Writable {
         }
     }
 
+    /**
+     * Removes the piece in this position, if any.
+     */
     public void removePiece() {
         this.piece = null;
     }
 
     // Getters
+
+    /**
+     * @return integer rank number of this position
+     */
     public int getRank() {
         return rank;
     }
 
+    /**
+     * @return integer file number of this position
+     */
     public int getFile() {
         return file;
     }
 
+    /**
+     * @return piece in this position, {@code null} if none
+     */
     public Piece getPiece() {
         return piece;
     }
 
-    // EFFECTS: returns position name in algebraic notation
+    /**
+     * @return string name of position in algebraic notation
+     */
     public String getName() {
         String[] letters = {"a", "b", "c", "d", "e", "f", "g", "h"};
         return letters[file] + (8 - rank);
     }
 
-    // EFFECTS: turns position into JSONObject
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

@@ -5,9 +5,18 @@ import model.Position;
 
 import java.util.ArrayList;
 
-// King is a subclass of Piece representing a King chess piece,
-// holds the same information as superclass
+/**
+ * The {@code King} class represents a king chess piece.
+ * @see model.pieces.Piece
+ * @author Youssef Saleh
+ */
 public class King extends Piece {
+    /**
+     * Constructs a new unmoved king of the given color
+     * @param color The color of the bishop
+     *              <p>white = 1
+     *              <p>black = -1
+     */
     public King(int color) {
         super(color);
         type = "King";
@@ -18,14 +27,16 @@ public class King extends Piece {
         }
     }
 
-    // MODIFIES: this
-    //  EFFECTS: generates and returns available Positions
-    //           King allowed to move 1 in any direction
+    /**
+     * Generates a list of all the positions the king can move to,
+     * going one square in all directions unless blocked by an edge or obstacle.
+     * @param board board this piece is on
+     * @param position position of this piece
+     * @return the list of positions
+     */
     @Override
     public ArrayList<Position> getAvailablePositions(Board board, Position position) {
         availablePositions.clear();
-        int rank = position.getRank();
-        int file = position.getFile();
 
         getPathOnce(-1,0, board, position); //N
         getPathOnce(-1,1, board, position); //NE

@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 // Represents a reader that reads the leaderboard from JSON data stored at default path
-public final class LeaderBoardReader {
+public final class LeaderboardReader {
     private static final String PATH = "./data/leaderboard.json";
 
-    private LeaderBoardReader() {}
+    private LeaderboardReader() {}
 
     // EFFECTS: returns leaderboard as ArrayList
     public static ArrayList<Entry> getLeaderBoard() {
@@ -44,7 +44,7 @@ public final class LeaderBoardReader {
                 stream.forEach(contentBuilder::append);
                 break;
             } catch (IOException e) {
-                LeaderBoardWriter.writeLeaderBoard(new ArrayList<>());
+                LeaderboardWriter.writeLeaderBoard(new ArrayList<>());
             }
         }
         return new JSONArray(contentBuilder.toString());

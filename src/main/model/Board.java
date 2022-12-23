@@ -5,25 +5,34 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-// Board is a representation of the chessboard,
-// it holds a single 8x8 array of Positions
+/**
+ * The {@code Board} class represents a chessboard, holding a 8x8 array of {@link model.Position}.
+ */
 public class Board implements Writable {
     private final Position[][] positions;
 
-    // EFFECTS: Constructs board and fills it up with Position objects
+    /**
+     * Constructs a new board with 64 empty positions.
+     */
     public Board() {
         this.positions = new Position[8][8];
-        setEmptyBoard();
+        for (int i = 0; i < 8; i++) {
+            for (int k = 0; k < 8; k++) {
+                this.positions[i][k] = new Position(i, k);
+            }
+        }
     }
 
-    // EFFECTS: Constructs a Board object from given board
+    /**
+     * Constructs a new board from given positions.
+     */
     public Board(Position[][] positions) {
         this.positions = positions;
     }
 
-    // REQUIRES: board is empty
-    // MODIFIES: this
-    //  EFFECTS: constructs pieces in their beginning positions
+    /**
+     * Places pieces in their default beginning positions.
+     */
     public void setDefaultBoard() {
         positions[0][0].setPiece(new Rook(-1));
         positions[0][1].setPiece(new Knight(-1));
@@ -49,26 +58,27 @@ public class Board implements Writable {
         }
     }
 
-    // MODIFIES: this
-    //  EFFECTS: fills board up with Position objects
-    private void setEmptyBoard() {
-        for (int i = 0; i < 8; i++) {
-            for (int k = 0; k < 8; k++) {
-                this.positions[i][k] = new Position(i, k);
-            }
-        }
-    }
-
     // Getters
+
+    /**
+     * @return 8x8 array of positions
+     */
     public Position[][] getPositions() {
         return positions;
     }
 
+    /**
+     * @param rank integer rank number
+     * @param file integer file number
+     * @return position with given rank and file
+     */
     public Position getPos(int rank, int file) {
         return positions[rank][file];
     }
 
-    // EFFECTS: turns board into JSONObject
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -76,7 +86,9 @@ public class Board implements Writable {
         return json;
     }
 
-    // EFFECTS: turns board into 2d JSONArray representation
+    /**
+     * @return 2d JSONArray representation of board
+     */
     private JSONArray boardToJson() {
         JSONArray json = new JSONArray();
         for (Position[] rank : this.positions) {

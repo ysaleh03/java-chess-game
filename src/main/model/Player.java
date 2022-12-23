@@ -8,12 +8,10 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 
-// Represents a chess player that can make moves
-// holds the following information:
-// - name
-// - color (using)
-// - captured pieces
-// - board
+/**
+ * The {@code Player} class represents a chess player.
+ * Can make moves, has a name, a color, a board, and a list of captured pieces.
+ */
 public class Player implements Writable {
     private final String name;
     private final ArrayList<Piece> capturedPieces;
@@ -21,15 +19,20 @@ public class Player implements Writable {
 
     private final EventLog theLog = EventLog.getInstance();
 
-    // EFFECTS: Constructs a new Player with given name,
-    //          no captures, null board
+    /**
+     * Constructs a new player with the given name, no captured pieces, and no board.
+     * @param name a string of the player's name
+     */
     public Player(String name) {
         this.name = name;
         this.capturedPieces = new ArrayList<>();
     }
 
-    // EFFECTS: Constructs a loaded Player with given name,
-    //          captures, null board
+    /**
+     * Constructs a previously existing player, with the given name, captured pieces, and no board.
+     * @param name a string of the player's name
+     * @param capturedPieces a list of pieces captured by the player
+     */
     public Player(String name, ArrayList<Piece> capturedPieces) {
         this.name = name;
         this.capturedPieces = capturedPieces;
@@ -41,6 +44,13 @@ public class Player implements Writable {
     //           else throws IllegalMoveException.
     //           if pos2 already contains a piece, removes it and adds it
     //           to capturedPieces
+
+    /**
+     * Moves the piece at {@code pos1} to {@code pos2}. If {@code pos2} contains a piece, adds it to player's captured pieces.
+     * @param pos1 position of the piece being moved
+     * @param pos2 position the piece is moving to
+     * @throws IllegalMoveException if {@code pos2} is not in selected piece's available positions
+     */
     public void makeMove(Position pos1, Position pos2) throws IllegalMoveException {
         StringBuilder msg = new StringBuilder(name + " moved " + pos1.getName() + " to " + pos2.getName());
         Piece piece = pos1.getPiece();
@@ -60,20 +70,34 @@ public class Player implements Writable {
     }
 
     // Setters
+
+    /**
+     * Sets board to given board.
+     * @param board board to be set
+     */
     public void setBoard(Board board) {
         this.board = board;
     }
 
     // Getters
+
+    /**
+     * @return string name of player
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return list of pieces captured by player
+     */
     public ArrayList<Piece> getCapturedPieces() {
         return capturedPieces;
     }
 
-    // EFFECTS: returns player as JSONObject
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -82,8 +106,9 @@ public class Player implements Writable {
         return json;
     }
 
-    // EFFECTS: iterates over capturedPieces, turning pieces
-    //          into JSONObjects, returns them in JSONArray
+    /**
+     * @return JSONArray of captured pieces
+     */
     private JSONArray capturesToJson() {
         JSONArray json = new JSONArray();
         for (Piece p : capturedPieces) {

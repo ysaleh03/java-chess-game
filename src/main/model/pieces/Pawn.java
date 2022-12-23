@@ -5,11 +5,20 @@ import model.Position;
 
 import java.util.ArrayList;
 
-// Pawn is a subclass of Piece representing a King chess piece,
-// holds the same information as superclass
+/**
+ * The {@code Pawn} class represents a pawn chess piece, extends {@link model.pieces.Piece}.
+ * @see model.pieces.Piece
+ * @author Youssef Saleh
+ */
 public class Pawn extends Piece {
     private int file;
 
+    /**
+     * Constructs a new unmoved pawn of the given color
+     * @param color The color of the pawn
+     *              <p>white = 1
+     *              <p>black = -1
+     */
     public Pawn(int color) {
         super(color);
         type = "Pawn";
@@ -20,10 +29,13 @@ public class Pawn extends Piece {
         }
     }
 
-    // MODIFIES: this
-    //  EFFECTS: generates and returns available Positions
-    //           Pawn allowed to move 1 forward, take 1 forward+diagonal
-    //           if !moved, can move 2 forward, no taking
+    /**
+     * {@inheritDoc}
+     * <p></p>
+     * Able to move one square to the front,
+     * <p>or two squares to the front if unmoved,
+     * <p>or one square diagonally to the front when taking.
+     */
     @Override
     public ArrayList<Position> getAvailablePositions(Board board, Position position) {
         file = position.getFile();
@@ -45,8 +57,14 @@ public class Pawn extends Piece {
         return availablePositions;
     }
 
-    // EFFECTS: if position in same file, returns true if empty,
-    //          else returns true if occupied by enemy Piece.
+    /**
+     * {@inheritDoc}
+     * @param position position to be checked
+     * @param board board this piece is on
+     * @return {@code true} if position in same file and empty,
+     * else {@code true} if occupied by enemy piece,
+     * else {@code false}.
+     */
     @Override
     protected boolean checkInvalid(Position position, Board board) {
         int rank = position.getRank();

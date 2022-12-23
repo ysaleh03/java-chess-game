@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class LeaderBoardReaderTest {
-    private static final ArrayList<Entry> LEADERBOARD0 = LeaderBoardReader.getLeaderBoard(); // original leaderboard
+public class LeaderboardReaderTest {
+    private static final ArrayList<Entry> LEADERBOARD0 = LeaderboardReader.getLeaderBoard(); // original leaderboard
 
     @Test
     void cantFindLeaderBoard() {
-        ArrayList<Entry> entries = LeaderBoardReader.getLeaderBoard();
+        ArrayList<Entry> entries = LeaderboardReader.getLeaderBoard();
         File leaderboard = new File("./data/leaderboard.json");
         if (leaderboard.delete()) {
-            entries = LeaderBoardReader.getLeaderBoard();
+            entries = LeaderboardReader.getLeaderBoard();
         } else {
             fail("Expected leaderboard.json");
         }
@@ -27,6 +27,6 @@ public class LeaderBoardReaderTest {
 
     @AfterAll
     static void afterAll() {
-        LeaderBoardWriter.writeLeaderBoard(LEADERBOARD0);
+        LeaderboardWriter.writeLeaderBoard(LEADERBOARD0);
     }
 }

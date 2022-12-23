@@ -5,7 +5,18 @@ import model.Position;
 
 import java.util.ArrayList;
 
+/**
+ * The {@code Bishop} class represents a bishop chess piece, extends {@link model.pieces.Piece}.
+ * @see model.pieces.Piece
+ * @author Youssef Saleh
+ */
 public class Bishop extends Piece {
+    /**
+     * Constructs a new unmoved bishop of the given color
+     * @param color The color of the bishop
+     *              <p>white = 1
+     *              <p>black = -1
+     */
     public Bishop(int color) {
         super(color);
         type = "Bishop";
@@ -16,9 +27,11 @@ public class Bishop extends Piece {
         }
     }
 
-    // MODIFIES: this
-    //  EFFECTS: generates and returns available Positions
-    //           Bishop allowed to move any dist. diagonally
+    /**
+     * {@inheritDoc}
+     * <p></p>
+     * Able to move diagonally in any direction, for any number of squares, until it reaches an edge or obstacle.
+     */
     @Override
     public ArrayList<Position> getAvailablePositions(Board board, Position position) {
         availablePositions.clear();

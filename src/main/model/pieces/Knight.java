@@ -5,9 +5,18 @@ import model.Position;
 
 import java.util.ArrayList;
 
-// Knight is a subclass of Piece representing a King chess piece,
-// holds the same information as superclass
+/**
+ * The {@code Knight} class represents a knight chess piece, extends {@link model.pieces.Piece}.
+ * @see model.pieces.Piece
+ * @author Youssef Saleh
+ */
 public class Knight extends Piece {
+    /**
+     * Constructs a new unmoved knight of the given color
+     * @param color The color of the knight
+     *              <p>white = 1
+     *              <p>black = -1
+     */
     public Knight(int color) {
         super(color);
         type = "Knight";
@@ -18,10 +27,11 @@ public class Knight extends Piece {
         }
     }
 
-    // MODIFIES: this
-    //  EFFECTS: generates and returns available Positions
-    //           Knight allowed to move 2 in one direction,
-    //           then 1 perpendicular to it
+    /**
+     * {@inheritDoc}
+     * <p></p>
+     * Able to move two squares in any one direction, then one square perpendicularly. Can jump over other pieces.
+     */
     @Override
     public ArrayList<Position> getAvailablePositions(Board board, Position position) {
         availablePositions.clear();

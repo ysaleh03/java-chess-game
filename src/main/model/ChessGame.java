@@ -2,27 +2,41 @@ package model;
 
 import model.pieces.King;
 import org.json.JSONObject;
-import persistence.LeaderBoardWriter;
+import persistence.LeaderboardWriter;
 import persistence.Writable;
 
-// Represents a game of chess,
-// holds following information:
-// - Board game is being played on
-// - Players playing game
-// - Num of turns elapsed
-// - Winner of game (set when game over)
+/**
+ * The {@code ChessGame} class represents a game of chess, including the following information:
+ * <p>
+ * - The board the game is being played on, <p>
+ * - The players playing the game, <p>
+ * - The number of turns elapsed, <p>
+ * - The winner of the game, if one exists.
+ */
 public class ChessGame implements Writable {
     private final Player player1;
     private final Player player2;
     private final Board board;
     private int turns;
+
+    /**
+     * one of:
+     * <p> 0 - player1 selecting piece,
+     * <p> 1 - player1 selecting position,
+     * <p> 2 - player2 selecting piece,
+     * <p> 3 - player2 selecting position.
+     */
     private int state; // one of: 0 - player1 selecting piece, 1 - player1 selecting position,
                        //         2 - player2 selecting piece, 3 - player2 selecting position.
     private Player winner;
 
     private final EventLog theLog = EventLog.getInstance();
 
-    // EFFECTS: Constructs a new ChessGame object
+    /**
+     * Constructs a new chess game on turn and state 0; with two players and null winner.
+     * @param player1 the first player (white)
+     * @param player2 the second player (black)
+     */
     public ChessGame(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -36,7 +50,15 @@ public class ChessGame implements Writable {
                 + player1.getName() + " and " + player2.getName()));
     }
 
-    // EFFECTS: Constructs a ChessGame object from given parameters
+    /**
+     * Constructs a previously existing chess game from the given parameters.
+     * @param player1 the first player (white)
+     * @param player2 the second player (black)
+     * @param board the board
+     * @param turns the turn the game is on
+     * @param state the state the game is on
+     * @param winner the winner, if any
+     */
     public ChessGame(Player player1, Player player2, Board board, int turns, int state, Player winner) {
         this.player1 = player1;
         this.player2 = player2;
@@ -50,8 +72,10 @@ public class ChessGame implements Writable {
                 + player1.getName() + " and " + player2.getName()));
     }
 
-    //  EFFECTS: returns false if both kings on board,
-    //           else returns true
+    /**
+     * Checks if game is in checkmate.
+     * @return {@code false} if both kings are on the board, else {@code true}.
+     */
     public boolean checkMate() {
         boolean whiteKing = false;
         boolean blackKing = false;
@@ -74,21 +98,32 @@ public class ChessGame implements Writable {
 
         if (!whiteKing || !blackKing) {
             theLog.logEvent(new Event("Check mate! " + winner.getName() + " won in " + turns + " turns"));
-            LeaderBoardWriter.addEntry(new Entry(winner.getName(), turns));
+            LeaderboardWriter.addEntry(new Entry(winner.getName(), turns));
         }
 
         return !(whiteKing && blackKing);
     }
 
     //Setters
+
+    /**
+     * Sets winner to given player.
+     * @param player winning player
+     */
     public void setWinner(Player player) {
         winner = player;
     }
 
+    /**
+     * Increments turns by 1.
+     */
     public void incrementTurns() {
         turns++;
     }
 
+    /**
+     * Moves to next state.
+     */
     public void incrementState() {
         if (state >= 3) {
             state = 0;
@@ -97,6 +132,9 @@ public class ChessGame implements Writable {
         }
     }
 
+    /**
+     * Resets state to previous piece-picking state.
+     */
     public void resetState() {
         if (state == 1) {
             state = 0;
@@ -106,31 +144,52 @@ public class ChessGame implements Writable {
     }
 
     //Getters
+
+    /**
+     * @return player 1
+     */
     public Player getPlayer1() {
         return player1;
     }
 
+    /**
+     * @return player 2
+     */
     public Player getPlayer2() {
         return player2;
     }
 
+    /**
+     * @return the board
+     */
     public Board getBoard() {
         return board;
     }
 
+    /**
+     * @return the current turn
+     */
     public int getTurns() {
         return turns;
     }
 
-
+    /**
+     * @return the current state
+     */
     public int getState() {
         return state;
     }
 
+    /**
+     * @return the current winner if any, otherwise {@code null}
+     */
     public Player getWinner() {
         return winner;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JSONObject toJson() {
         resetState();

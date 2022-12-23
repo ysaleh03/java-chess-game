@@ -5,7 +5,7 @@ import model.Entry;
 import model.EventLog;
 import model.Player;
 import org.json.JSONException;
-import persistence.LeaderBoardReader;
+import persistence.LeaderboardReader;
 import persistence.SaveFileReader;
 import ui.exceptions.ExitException;
 
@@ -164,7 +164,7 @@ public final class MenuGUI extends JFrame {
 
         // EFFECTS: constructs a new leaderboard.
         private void setup() {
-            ArrayList<Entry> lb = LeaderBoardReader.getLeaderBoard();
+            ArrayList<Entry> lb = LeaderboardReader.getLeaderBoard();
             DefaultListModel<String> listModel = new DefaultListModel<>();
 
             for (int i = 0; i < lb.size(); i++) {
