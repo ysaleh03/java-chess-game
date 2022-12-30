@@ -1,6 +1,10 @@
-package model;
+package model.players;
 
-import model.exceptions.IllegalMoveException;
+import exceptions.IllegalMoveException;
+import model.Board;
+import model.Event;
+import model.EventLog;
+import model.Position;
 import model.pieces.Piece;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,12 +19,12 @@ import java.util.ArrayList;
 public class Player implements Writable {
     private final String name;
     private final ArrayList<Piece> capturedPieces;
-    private Board board;
-
     private final EventLog theLog = EventLog.getInstance();
+    private Board board;
 
     /**
      * Constructs a new player with the given name, no captured pieces, and no board.
+     *
      * @param name a string of the player's name
      */
     public Player(String name) {
@@ -30,7 +34,8 @@ public class Player implements Writable {
 
     /**
      * Constructs a previously existing player, with the given name, captured pieces, and no board.
-     * @param name a string of the player's name
+     *
+     * @param name           a string of the player's name
      * @param capturedPieces a list of pieces captured by the player
      */
     public Player(String name, ArrayList<Piece> capturedPieces) {
@@ -38,15 +43,9 @@ public class Player implements Writable {
         this.capturedPieces = capturedPieces;
     }
 
-    // MODIFIES: this, pos1, pos2, board
-    //  EFFECTS: gets piece from pos1,
-    //           if pos2 is in piece's availablePositions, moves piece to pos2,
-    //           else throws IllegalMoveException.
-    //           if pos2 already contains a piece, removes it and adds it
-    //           to capturedPieces
-
     /**
      * Moves the piece at {@code pos1} to {@code pos2}. If {@code pos2} contains a piece, adds it to player's captured pieces.
+     *
      * @param pos1 position of the piece being moved
      * @param pos2 position the piece is moving to
      * @throws IllegalMoveException if {@code pos2} is not in selected piece's available positions
@@ -73,6 +72,7 @@ public class Player implements Writable {
 
     /**
      * Sets board to given board.
+     *
      * @param board board to be set
      */
     public void setBoard(Board board) {

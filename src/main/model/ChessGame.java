@@ -1,8 +1,8 @@
 package model;
 
 import model.pieces.King;
+import model.players.Player;
 import org.json.JSONObject;
-import persistence.LeaderboardWriter;
 import persistence.Writable;
 
 /**
@@ -14,11 +14,12 @@ import persistence.Writable;
  * - The winner of the game, if one exists.
  */
 public class ChessGame implements Writable {
+    private final Leaderboard theLeaderboard = Leaderboard.getInstance();
     private final Player player1;
     private final Player player2;
     private final Board board;
+    private final EventLog theLog = EventLog.getInstance();
     private int turns;
-
     /**
      * one of:
      * <p> 0 - player1 selecting piece,
@@ -27,13 +28,12 @@ public class ChessGame implements Writable {
      * <p> 3 - player2 selecting position.
      */
     private int state; // one of: 0 - player1 selecting piece, 1 - player1 selecting position,
-                       //         2 - player2 selecting piece, 3 - player2 selecting position.
+    //         2 - player2 selecting piece, 3 - player2 selecting position.
     private Player winner;
-
-    private final EventLog theLog = EventLog.getInstance();
 
     /**
      * Constructs a new chess game on turn and state 0; with two players and null winner.
+     *
      * @param player1 the first player (white)
      * @param player2 the second player (black)
      */
@@ -52,12 +52,13 @@ public class ChessGame implements Writable {
 
     /**
      * Constructs a previously existing chess game from the given parameters.
+     *
      * @param player1 the first player (white)
      * @param player2 the second player (black)
-     * @param board the board
-     * @param turns the turn the game is on
-     * @param state the state the game is on
-     * @param winner the winner, if any
+     * @param board   the board
+     * @param turns   the turn the game is on
+     * @param state   the state the game is on
+     * @param winner  the winner, if any
      */
     public ChessGame(Player player1, Player player2, Board board, int turns, int state, Player winner) {
         this.player1 = player1;
@@ -74,6 +75,7 @@ public class ChessGame implements Writable {
 
     /**
      * Checks if game is in checkmate.
+     *
      * @return {@code false} if both kings are on the board, else {@code true}.
      */
     public boolean checkMate() {
@@ -98,21 +100,13 @@ public class ChessGame implements Writable {
 
         if (!whiteKing || !blackKing) {
             theLog.logEvent(new Event("Check mate! " + winner.getName() + " won in " + turns + " turns"));
-            LeaderboardWriter.addEntry(new Entry(winner.getName(), turns));
+            theLeaderboard.addEntry(new Entry(winner.getName(), turns));
         }
 
         return !(whiteKing && blackKing);
     }
 
     //Setters
-
-    /**
-     * Sets winner to given player.
-     * @param player winning player
-     */
-    public void setWinner(Player player) {
-        winner = player;
-    }
 
     /**
      * Increments turns by 1.
@@ -143,14 +137,14 @@ public class ChessGame implements Writable {
         }
     }
 
-    //Getters
-
     /**
      * @return player 1
      */
     public Player getPlayer1() {
         return player1;
     }
+
+    //Getters
 
     /**
      * @return player 2
@@ -185,6 +179,15 @@ public class ChessGame implements Writable {
      */
     public Player getWinner() {
         return winner;
+    }
+
+    /**
+     * Sets winner to given player.
+     *
+     * @param player winning player
+     */
+    public void setWinner(Player player) {
+        winner = player;
     }
 
     /**

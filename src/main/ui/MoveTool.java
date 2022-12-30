@@ -1,15 +1,16 @@
 package ui;
 
+import exceptions.IllegalPieceException;
+import exceptions.InvalidPieceException;
+import exceptions.InvalidPositionException;
 import model.Position;
 import model.pieces.Piece;
-import ui.exceptions.IllegalPieceException;
-import ui.exceptions.InvalidPieceException;
-import ui.exceptions.InvalidPositionException;
 
 // Tool that allows user to select positions on the board.
 public final class MoveTool {
 
-    public MoveTool() {}
+    public MoveTool() {
+    }
 
     // REQUIRES: colors = ±1
     //  EFFECTS: takes int color and a position,

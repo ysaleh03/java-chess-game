@@ -11,13 +11,14 @@ public final class SaveFileWriter {
     private static final String DIRECTORY = "./data/saves/";
     private static PrintWriter writer;
 
-    private SaveFileWriter() {}
+    private SaveFileWriter() {
+    }
 
     // EFFECTS: constructs writer to write to destination file
     public static void write(ChessGame chessGame, String fileName) throws FileNotFoundException {
         String path = DIRECTORY + fileName + ".json";
         open(path);
-        writeFile(chessGame, path);
+        writeFile(chessGame);
         close();
     }
 
@@ -30,7 +31,7 @@ public final class SaveFileWriter {
 
     // MODIFIES: this
     //  EFFECTS: writes JSON -> String representation of workroom to file
-    private static void writeFile(ChessGame chessGame, String path) {
+    private static void writeFile(ChessGame chessGame) {
         JSONObject json = chessGame.toJson();
         writer.print(json.toString(5));
     }

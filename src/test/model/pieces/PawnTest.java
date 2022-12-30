@@ -19,15 +19,15 @@ public class PawnTest {
 
     @Test
     void iconTest() {
-        Pawn whitePawn =  new Pawn(1);
-        Pawn blackPawn =  new Pawn(-1);
+        Pawn whitePawn = new Pawn(1);
+        Pawn blackPawn = new Pawn(-1);
         assertEquals("./data/icons/pawnw.png", whitePawn.getIconPath());
         assertEquals("./data/icons/pawnb.png", blackPawn.getIconPath());
     }
 
     @Test
     void getAvailablePositionLeftEdge() {
-        Pawn pawn =  new Pawn(1);
+        Pawn pawn = new Pawn(1);
         board.getPos(3, 0).setPiece(pawn);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(3, 0));
         assertEquals(2, availPos.size());
@@ -35,7 +35,7 @@ public class PawnTest {
 
     @Test
     void getAvailablePositionRightEdge() {
-        Pawn pawn =  new Pawn(1);
+        Pawn pawn = new Pawn(1);
         board.getPos(3, 7).setPiece(pawn);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(3, 7));
         assertEquals(2, availPos.size());
@@ -43,7 +43,7 @@ public class PawnTest {
 
     @Test
     void getAvailablePositionsWhiteNeverMoved() {
-        Pawn pawn =  new Pawn(1);
+        Pawn pawn = new Pawn(1);
         board.getPos(6, 3).setPiece(pawn);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(6, 3));
         assertEquals(2, availPos.size());
@@ -53,7 +53,7 @@ public class PawnTest {
 
     @Test
     void getAvailablePositionsBlackNeverMoved() {
-        Pawn pawn =  new Pawn(-1);
+        Pawn pawn = new Pawn(-1);
         board.getPos(1, 3).setPiece(pawn);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(1, 3));
         assertEquals(2, availPos.size());
@@ -63,7 +63,7 @@ public class PawnTest {
 
     @Test
     void getAvailablePositionsAlreadyMoved() {
-        Pawn pawn =  new Pawn(1);
+        Pawn pawn = new Pawn(1);
         pawn.setMoved(true);
         board.getPos(6, 3).setPiece(pawn);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(6, 3));
@@ -73,9 +73,9 @@ public class PawnTest {
 
     @Test
     void getAvailablePositionsWithFriend() {
-        Pawn pawn =  new Pawn(1);
+        Pawn pawn = new Pawn(1);
         board.getPos(3, 3).setPiece(pawn);
-        Rook friendRook =  new Rook(1);
+        Rook friendRook = new Rook(1);
         board.getPos(2, 3).setPiece(friendRook);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(0, availPos.size());
@@ -83,9 +83,9 @@ public class PawnTest {
 
     @Test
     void getAvailablePositionsCantTakeFriend() {
-        Pawn pawn =  new Pawn(1);
+        Pawn pawn = new Pawn(1);
         board.getPos(3, 3).setPiece(pawn);
-        Rook friendRook =  new Rook(1);
+        Rook friendRook = new Rook(1);
         board.getPos(2, 2).setPiece(friendRook);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(2, availPos.size());
@@ -94,9 +94,9 @@ public class PawnTest {
 
     @Test
     void getAvailablePositionsWithEnemy() {
-        Pawn pawn =  new Pawn(1);
+        Pawn pawn = new Pawn(1);
         board.getPos(3, 3).setPiece(pawn);
-        Rook enemyRook =  new Rook(-1);
+        Rook enemyRook = new Rook(-1);
         board.getPos(2, 2).setPiece(enemyRook);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(3, availPos.size());
@@ -107,11 +107,11 @@ public class PawnTest {
 
     @Test
     void getAvailablePositionsWithFriendAndEnemy() {
-        Pawn pawn =  new Pawn(1);
+        Pawn pawn = new Pawn(1);
         board.getPos(3, 3).setPiece(pawn);
-        Rook friendRook =  new Rook(1);
+        Rook friendRook = new Rook(1);
         board.getPos(2, 3).setPiece(friendRook);
-        Rook enemyRook =  new Rook(-1);
+        Rook enemyRook = new Rook(-1);
         board.getPos(2, 2).setPiece(enemyRook);
         ArrayList<Position> availPos = pawn.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(1, availPos.size());

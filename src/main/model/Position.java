@@ -17,6 +17,7 @@ public class Position implements Writable {
 
     /**
      * Constructs an empty position at the given rank and file.
+     *
      * @param rank integer between 0 and 7
      * @param file integer between 0 and 7
      */
@@ -27,28 +28,11 @@ public class Position implements Writable {
     }
 
     /**
-     * Places given piece in this position.
-     * <p> If piece is a pawn eligible for promotion, places queen instead.
-     * @param piece piece being placed
-     */
-    public void setPiece(Piece piece) {
-        if (rank == 0 && piece instanceof Pawn && piece.getColor() == 1) {
-            this.piece = new Queen(1);
-        } else if (rank == 7 && piece instanceof Pawn && piece.getColor() == -1) {
-            this.piece = new Queen(-1);
-        } else {
-            this.piece = piece;
-        }
-    }
-
-    /**
      * Removes the piece in this position, if any.
      */
     public void removePiece() {
         this.piece = null;
     }
-
-    // Getters
 
     /**
      * @return integer rank number of this position
@@ -56,6 +40,8 @@ public class Position implements Writable {
     public int getRank() {
         return rank;
     }
+
+    // Getters
 
     /**
      * @return integer file number of this position
@@ -69,6 +55,22 @@ public class Position implements Writable {
      */
     public Piece getPiece() {
         return piece;
+    }
+
+    /**
+     * Places given piece in this position.
+     * <p> If piece is a pawn eligible for promotion, places queen instead.
+     *
+     * @param piece piece being placed
+     */
+    public void setPiece(Piece piece) {
+        if (rank == 0 && piece instanceof Pawn && piece.getColor() == 1) {
+            this.piece = new Queen(1);
+        } else if (rank == 7 && piece instanceof Pawn && piece.getColor() == -1) {
+            this.piece = new Queen(-1);
+        } else {
+            this.piece = piece;
+        }
     }
 
     /**

@@ -5,34 +5,18 @@ import org.json.JSONArray;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.List;
 
 // Represents a writer that writes new entries to the leaderboard at default path
 public final class LeaderboardWriter {
     private static String path = "./data/leaderboard.json";
 
-    private LeaderboardWriter() {}
-
-    // REQUIRES: turns > 0
-    // MODIFIES: this
-    //  EFFECTS: if winner made it onto leaderboard, adds them
-    //           based on turns, removes 6th entry
-    public static void addEntry(Entry entry) {
-        ArrayList<Entry> entries = LeaderboardReader.getLeaderBoard();
-        if (!entries.contains(entry)) {
-            entries.add(entry);
-        }
-        entries.sort(Comparator.comparingInt(Entry::getTurns));
-        if (entries.size() > 5) {
-            entries.subList(5, entries.size() - 1).clear();
-        }
-        writeLeaderBoard(entries);
+    private LeaderboardWriter() {
     }
 
     // MODIFIES: this
     //  EFFECTS: writes new leaderboard at PATH
-    public static void writeLeaderBoard(ArrayList<Entry> entries) {
+    public static void writeLeaderBoard(List<Entry> entries) {
         PrintWriter writer;
         try {
             writer = new PrintWriter(path);

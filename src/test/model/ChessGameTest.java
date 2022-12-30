@@ -1,18 +1,18 @@
 package model;
 
 import model.pieces.EventTest;
+import model.players.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ChessGameTest extends EventTest {
+    private final EventLog theLog = EventLog.getInstance();
     private ChessGame chessGame;
     private Player player1;
     private Player player2;
     private Board defBoard;
-
-    private final EventLog theLog = EventLog.getInstance();
 
     @BeforeEach
     void beforeEach() {
@@ -95,7 +95,7 @@ public class ChessGameTest extends EventTest {
 
     @Test
     void gameOverWhiteWins() {
-        chessGame.getBoard().getPos(0,4).removePiece();
+        chessGame.getBoard().getPos(0, 4).removePiece();
         assertTrue(chessGame.checkMate());
         assertEquals(player1, chessGame.getWinner());
         checkEvent(1, "Check mate! Foo won in 0 turns");
@@ -103,7 +103,7 @@ public class ChessGameTest extends EventTest {
 
     @Test
     void gameOverBlackWins() {
-        chessGame.getBoard().getPos(7,4).removePiece();
+        chessGame.getBoard().getPos(7, 4).removePiece();
         assertTrue(chessGame.checkMate());
         assertEquals(player2, chessGame.getWinner());
         checkEvent(1, "Check mate! Bar won in 0 turns");

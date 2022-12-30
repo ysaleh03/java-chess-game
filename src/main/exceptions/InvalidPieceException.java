@@ -1,4 +1,4 @@
-package ui.exceptions;
+package exceptions;
 
 public class InvalidPieceException extends Exception {
 }

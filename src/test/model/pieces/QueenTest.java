@@ -19,15 +19,15 @@ public class QueenTest {
 
     @Test
     void iconTest() {
-        Queen whiteQueen =  new Queen(1);
-        Queen blackQueen =  new Queen(-1);
+        Queen whiteQueen = new Queen(1);
+        Queen blackQueen = new Queen(-1);
         assertEquals("./data/icons/queenw.png", whiteQueen.getIconPath());
         assertEquals("./data/icons/queenb.png", blackQueen.getIconPath());
     }
 
     @Test
     void getAvailablePositionsFromCenter() {
-        Queen queen =  new Queen(1);
+        Queen queen = new Queen(1);
         board.getPos(3, 3).setPiece(queen);
         ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(27, availPos.size());
@@ -35,7 +35,7 @@ public class QueenTest {
 
     @Test
     void getAvailablePositionsFromEdge() {
-        Queen queen =  new Queen(1);
+        Queen queen = new Queen(1);
         board.getPos(4, 0).setPiece(queen);
         ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(4, 0));
         assertEquals(21, availPos.size());
@@ -43,7 +43,7 @@ public class QueenTest {
 
     @Test
     void getAvailablePositionsFromCorner() {
-        Queen queen =  new Queen(1);
+        Queen queen = new Queen(1);
         board.getPos(0, 0).setPiece(queen);
         ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(0, 0));
         assertEquals(21, availPos.size());
@@ -51,11 +51,11 @@ public class QueenTest {
 
     @Test
     void getAvailablePositionsWithTwoFriends() {
-        Queen queen =  new Queen(1);
+        Queen queen = new Queen(1);
         board.getPos(3, 3).setPiece(queen);
-        Pawn friendPawn =  new Pawn(1);
+        Pawn friendPawn = new Pawn(1);
         board.getPos(2, 2).setPiece(friendPawn);
-        Rook friendRook =  new Rook(1);
+        Rook friendRook = new Rook(1);
         board.getPos(3, 6).setPiece(friendRook);
         ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(22, availPos.size());
@@ -65,9 +65,9 @@ public class QueenTest {
 
     @Test
     void getAvailablePositionsWithEnemy() {
-        Queen queen =  new Queen(1);
+        Queen queen = new Queen(1);
         board.getPos(3, 3).setPiece(queen);
-        Rook enemyRook =  new Rook(-1);
+        Rook enemyRook = new Rook(-1);
         board.getPos(3, 5).setPiece(enemyRook);
         ArrayList<Position> availPos = queen.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(25, availPos.size());

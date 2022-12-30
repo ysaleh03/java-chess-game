@@ -1,4 +1,4 @@
-package model.exceptions;
+package exceptions;
 
 public class IllegalMoveException extends Exception {
 }

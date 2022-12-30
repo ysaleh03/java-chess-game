@@ -2,9 +2,9 @@ package persistence;
 
 import model.Board;
 import model.ChessGame;
-import model.Player;
 import model.Position;
 import model.pieces.*;
+import model.players.Player;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +20,8 @@ import java.util.stream.Stream;
 public final class SaveFileReader {
     private static final String DIRECTORY = "./data/saves/";
 
-    private SaveFileReader() {}
+    private SaveFileReader() {
+    }
 
     // EFFECTS: reads the file at path, returns ChessGame object
     public static ChessGame read(String fileName) throws IOException {

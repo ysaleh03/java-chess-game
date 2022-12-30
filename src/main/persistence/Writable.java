@@ -8,6 +8,7 @@ import org.json.JSONObject;
 public interface Writable {
     /**
      * Turns writable into a JSONObject
+     *
      * @return JSONObject representation of writable
      */
     JSONObject toJson();

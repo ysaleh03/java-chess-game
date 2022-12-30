@@ -19,15 +19,15 @@ public class KnightTest {
 
     @Test
     void iconTest() {
-        Knight whiteKnight =  new Knight(1);
-        Knight blackKnight =  new Knight(-1);
+        Knight whiteKnight = new Knight(1);
+        Knight blackKnight = new Knight(-1);
         assertEquals("./data/icons/knightw.png", whiteKnight.getIconPath());
         assertEquals("./data/icons/knightb.png", blackKnight.getIconPath());
     }
 
     @Test
     void getAvailablePositionsFromCenter() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(3, 3).setPiece(knight);
         ArrayList<Position> availPos = knight.getAvailablePositions(board, board.getPos(3, 3));
         assertEquals(8, availPos.size());
@@ -35,7 +35,7 @@ public class KnightTest {
 
     @Test
     void getAvailablePositionsFromLeftEdge() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(3, 0).setPiece(knight);
         ArrayList<Position> availPos = knight.getAvailablePositions(board, board.getPos(3, 0));
         assertEquals(4, availPos.size());
@@ -43,7 +43,7 @@ public class KnightTest {
 
     @Test
     void getAvailablePositionsFromRightEdge() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(3, 7).setPiece(knight);
         ArrayList<Position> availPos = knight.getAvailablePositions(board, board.getPos(3, 7));
         assertEquals(4, availPos.size());
@@ -51,7 +51,7 @@ public class KnightTest {
 
     @Test
     void getAvailablePositionsFromTopEdge() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(0, 3).setPiece(knight);
         ArrayList<Position> availPos = knight.getAvailablePositions(board, board.getPos(0, 3));
         assertEquals(4, availPos.size());
@@ -59,7 +59,7 @@ public class KnightTest {
 
     @Test
     void getAvailablePositionsFromBottomEdge() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(7, 3).setPiece(knight);
         ArrayList<Position> availPos = knight.getAvailablePositions(board, board.getPos(7, 3));
         assertEquals(4, availPos.size());
@@ -67,7 +67,7 @@ public class KnightTest {
 
     @Test
     void getAvailablePositionsNearEdge() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(3, 1).setPiece(knight);
         ArrayList<Position> availPos = knight.getAvailablePositions(board, board.getPos(3, 1));
         assertEquals(6, availPos.size());
@@ -75,7 +75,7 @@ public class KnightTest {
 
     @Test
     void getAvailablePositionsFromCorner() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(0, 0).setPiece(knight);
         ArrayList<Position> availPos = knight.getAvailablePositions(board, board.getPos(0, 0));
         assertEquals(2, availPos.size());
@@ -83,9 +83,9 @@ public class KnightTest {
 
     @Test
     void getAvailablePositionsWithFriend() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(3, 3).setPiece(knight);
-        Pawn friendPawn =  new Pawn(1);
+        Pawn friendPawn = new Pawn(1);
         board.getPos(2, 2).setPiece(friendPawn);
         Rook friendRook = new Rook(1);
         board.getPos(1, 4).setPiece(friendRook);
@@ -97,9 +97,9 @@ public class KnightTest {
 
     @Test
     void getAvailablePositionsWithEnemy() {
-        Knight knight =  new Knight(1);
+        Knight knight = new Knight(1);
         board.getPos(3, 3).setPiece(knight);
-        Pawn enemyPawn =  new Pawn(-1);
+        Pawn enemyPawn = new Pawn(-1);
         board.getPos(2, 2).setPiece(enemyPawn);
         Rook enemyRook = new Rook(-1);
         board.getPos(1, 4).setPiece(enemyRook);

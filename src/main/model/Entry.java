@@ -38,8 +38,8 @@ public class Entry implements Writable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Entry entry = (Entry) o;
-        return turns == entry.turns && name.equals(entry.name);
+        Entry that = (Entry) o;
+        return this.turns == that.turns && this.name.equals(that.name);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package persistence;
 
+import exceptions.IllegalMoveException;
 import model.Board;
 import model.ChessGame;
-import model.Player;
 import model.Position;
-import model.exceptions.IllegalMoveException;
 import model.pieces.Pawn;
 import model.pieces.Piece;
+import model.players.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,8 +51,8 @@ public class SaveFileWriterTest extends JsonTest {
 
             assertEquals(0, cg.getTurns());
             assertEquals(0, cg.getState());
-            checkPlayer("Foo", new ArrayList<>() ,cg.getPlayer1());
-            checkPlayer("Bar", new ArrayList<>() ,cg.getPlayer2());
+            checkPlayer("Foo", new ArrayList<>(), cg.getPlayer1());
+            checkPlayer("Bar", new ArrayList<>(), cg.getPlayer2());
             checkBoard(mtBoard.getPositions(), cg.getBoard());
         } catch (IOException e) {
             fail("Unexpected IOException");
@@ -73,8 +73,8 @@ public class SaveFileWriterTest extends JsonTest {
 
             assertEquals(0, cg.getTurns());
             assertEquals(2, cg.getState());
-            checkPlayer("Foo", new ArrayList<>() ,cg.getPlayer1());
-            checkPlayer("Bar", new ArrayList<>() ,cg.getPlayer2());
+            checkPlayer("Foo", new ArrayList<>(), cg.getPlayer1());
+            checkPlayer("Bar", new ArrayList<>(), cg.getPlayer2());
             checkBoard(mtBoard.getPositions(), cg.getBoard());
         } catch (IOException e) {
             fail("Unexpected IOException");

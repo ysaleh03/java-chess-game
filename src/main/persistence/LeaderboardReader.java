@@ -15,38 +15,40 @@ import java.util.stream.Stream;
 public final class LeaderboardReader {
     private static final String PATH = "./data/leaderboard.json";
 
-    private LeaderboardReader() {}
+    private LeaderboardReader() {
+    }
 
     // EFFECTS: returns leaderboard as ArrayList
-    public static ArrayList<Entry> getLeaderBoard() {
-        JSONArray jsonArray = readLeaderBoard();
-        ArrayList<Entry> leaderBoard = new ArrayList<>();
+    public static ArrayList<Entry> read() {
+        JSONArray jsonArray = readFile();
+        ArrayList<Entry> lb = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            leaderBoard.add(parseEntry(jsonObject));
+            lb.add(parseEntry(jsonObject));
         }
-        return leaderBoard;
-    }
 
-    private static Entry parseEntry(JSONObject json) {
-        return new Entry(json.getString("name"), json.getInt("turns"));
+        return lb;
     }
 
     // MODIFIES: this
     //  EFFECTS: reads source file as string and returns it,
     //           if leaderboard cannot be found, creates new one and tries again
     // from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-    private static JSONArray readLeaderBoard() {
+    private static JSONArray readFile() {
         StringBuilder contentBuilder = new StringBuilder();
-        while (true) {
-            try (Stream<String> stream = Files.lines(Paths.get(PATH), StandardCharsets.UTF_8)) {
-                stream.forEach(contentBuilder::append);
-                break;
-            } catch (IOException e) {
-                LeaderboardWriter.writeLeaderBoard(new ArrayList<>());
-            }
+
+        try (Stream<String> stream = Files.lines(Paths.get(PATH), StandardCharsets.UTF_8)) {
+            stream.forEach(contentBuilder::append);
+        } catch (IOException e) {
+            LeaderboardWriter.writeLeaderBoard(new ArrayList<>());
+            return readFile();
         }
+
         return new JSONArray(contentBuilder.toString());
+    }
+
+    private static Entry parseEntry(JSONObject json) {
+        return new Entry(json.getString("name"), json.getInt("turns"));
     }
 }

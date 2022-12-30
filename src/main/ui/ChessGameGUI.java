@@ -1,15 +1,13 @@
 package ui;
 
+import exceptions.*;
 import model.ChessGame;
-import model.Player;
+import model.Leaderboard;
 import model.Position;
-import model.exceptions.IllegalMoveException;
 import model.pieces.Piece;
+import model.players.Player;
+import persistence.LeaderboardWriter;
 import persistence.SaveFileWriter;
-import ui.exceptions.ExitException;
-import ui.exceptions.IllegalPieceException;
-import ui.exceptions.InvalidPieceException;
-import ui.exceptions.InvalidPositionException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +65,7 @@ public final class ChessGameGUI extends JFrame {
             captures.add(new JLabel(new ImageIcon(piece.getIconPath())));
         }
 
-        captures.setBackground(new Color(20,120,100));
+        captures.setBackground(new Color(20, 120, 100));
 
         return captures;
     }
@@ -92,7 +90,7 @@ public final class ChessGameGUI extends JFrame {
             chessBoard.add(new JLabel());
         }
 
-        chessBoard.setBackground(new Color(20,120,100));
+        chessBoard.setBackground(new Color(20, 120, 100));
 
         return chessBoard;
     }
@@ -112,14 +110,67 @@ public final class ChessGameGUI extends JFrame {
                     square.setIcon(new ImageIcon(positions[i][k].getPiece().getIconPath()));
                 }
                 if (color == 1) {
-                    squares[i][k].setBackground(new Color(255,225,175));
+                    squares[i][k].setBackground(new Color(255, 225, 175));
                 } else {
-                    squares[i][k].setBackground(new Color(180,110,0));
+                    squares[i][k].setBackground(new Color(180, 110, 0));
                 }
                 color *= -1;
             }
         }
         return squares;
+    }
+
+    // MODIFIES: this
+    //  EFFECTS: updates title and contentPane to reflect changes
+    private void update() {
+        setContentPane(contentPane());
+        revalidate();
+        repaint();
+
+        if (chessGame.getState() <= 1) {
+            setTitle(chessGame.getPlayer1().getName() + "'s turn");
+        } else {
+            setTitle(chessGame.getPlayer2().getName() + "'s turn");
+        }
+
+        if (chessGame.checkMate()) {
+            JOptionPane.showMessageDialog(this,
+                    chessGame.getWinner().getName() + " wins!", "Checkmate",
+                    JOptionPane.INFORMATION_MESSAGE);
+            saveDialogue();
+        }
+    }
+
+    // EFFECTS: allows user to save game,
+    //          if so, asks for filename.
+    private void saveDialogue() {
+        int input = JOptionPane.showConfirmDialog(this,
+                "Do you want to save this game?", "Save Dialogue", JOptionPane.YES_NO_OPTION);
+        if (input == JOptionPane.YES_OPTION) {
+            String fileName = JOptionPane.showInputDialog(null,
+                    "Enter file name: ");
+            if (fileName != null) {
+                try {
+                    chessGame.resetState();
+                    SaveFileWriter.write(chessGame, fileName);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Unable to save game", "Saving Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    saveDialogue();
+                }
+            }
+        }
+        LeaderboardWriter.writeLeaderBoard(Leaderboard.getInstance().getEntries());
+        dispose();
+        throw new ExitException();
+    }
+
+    // FROM LAB 6 SNAKE WITH BUGS
+    // MODIFIES: this
+    // EFFECTS:  frame is centred on desktop
+    private void centerOnScreen() {
+        Dimension scr = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((scr.width - getWidth()) / 2, (scr.height - getHeight()) / 2);
     }
 
     // A chessboard square
@@ -167,55 +218,5 @@ public final class ChessGameGUI extends JFrame {
                 chessGame.resetState();
             }
         }
-    }
-
-    // MODIFIES: this
-    //  EFFECTS: updates title and contentPane to reflect changes
-    private void update() {
-        setContentPane(contentPane());
-        revalidate();
-        repaint();
-        if (chessGame.getState() <= 1) {
-            setTitle(chessGame.getPlayer1().getName() + "'s turn");
-        } else {
-            setTitle(chessGame.getPlayer2().getName() + "'s turn");
-        }
-        if (chessGame.checkMate()) {
-            JOptionPane.showMessageDialog(this,
-                    chessGame.getWinner().getName() + " wins!", "Checkmate",
-                    JOptionPane.INFORMATION_MESSAGE);
-            saveDialogue();
-        }
-    }
-
-    // EFFECTS: allows user to save game,
-    //          if so, asks for filename.
-    private void saveDialogue() {
-        int input = JOptionPane.showConfirmDialog(this,
-                "Do you want to save this game?", "Save Dialogue", JOptionPane.YES_NO_OPTION);
-        if (input == JOptionPane.YES_OPTION) {
-            String fileName = JOptionPane.showInputDialog(null,
-                    "Enter file name: ");
-            if (fileName != null) {
-                try {
-                    chessGame.resetState();
-                    SaveFileWriter.write(chessGame, fileName);
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Unable to save game", "Saving Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    saveDialogue();
-                }
-            }
-        }
-        dispose();
-        throw new ExitException();
-    }
-
-    // FROM LAB 6 SNAKE WITH BUGS
-    // MODIFIES: this
-    // EFFECTS:  frame is centred on desktop
-    private void centerOnScreen() {
-        Dimension scr = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((scr.width - getWidth()) / 2, (scr.height - getHeight()) / 2);
     }
 }

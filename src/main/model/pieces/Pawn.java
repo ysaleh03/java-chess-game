@@ -7,14 +7,16 @@ import java.util.ArrayList;
 
 /**
  * The {@code Pawn} class represents a pawn chess piece, extends {@link model.pieces.Piece}.
- * @see model.pieces.Piece
+ *
  * @author Youssef Saleh
+ * @see model.pieces.Piece
  */
 public class Pawn extends Piece {
     private int file;
 
     /**
      * Constructs a new unmoved pawn of the given color
+     *
      * @param color The color of the pawn
      *              <p>white = 1
      *              <p>black = -1
@@ -59,8 +61,9 @@ public class Pawn extends Piece {
 
     /**
      * {@inheritDoc}
+     *
      * @param position position to be checked
-     * @param board board this piece is on
+     * @param board    board this piece is on
      * @return {@code true} if position in same file and empty,
      * else {@code true} if occupied by enemy piece,
      * else {@code false}.

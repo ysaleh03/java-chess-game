@@ -1,22 +1,22 @@
 package model;
 
-import model.exceptions.IllegalMoveException;
+import exceptions.IllegalMoveException;
 import model.pieces.EventTest;
 import model.pieces.Pawn;
+import model.players.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest extends EventTest {
+    private final EventLog theLog = EventLog.getInstance();
     private Player player;
     private Board board;
     private Position friendPos;
     private Position enemyPos;
     private Pawn friendPawn;
     private Pawn enemyPawn;
-
-    private final EventLog theLog = EventLog.getInstance();
 
     @BeforeEach
     void beforeEach() {
@@ -25,8 +25,8 @@ public class PlayerTest extends EventTest {
         this.player.setBoard(this.board);
         this.friendPawn = new Pawn(1);
         this.enemyPawn = new Pawn(-1);
-        this.friendPos = board.getPos(3,3);
-        this.enemyPos = this.board.getPos(2,2);
+        this.friendPos = board.getPos(3, 3);
+        this.enemyPos = this.board.getPos(2, 2);
 
         friendPos.setPiece(friendPawn);
         enemyPos.setPiece(enemyPawn);
@@ -42,7 +42,7 @@ public class PlayerTest extends EventTest {
 
     @Test
     void makeMoveNoTakeTest() {
-        Position newPos = board.getPos(2,3);
+        Position newPos = board.getPos(2, 3);
         try {
             player.makeMove(friendPos, newPos);
         } catch (IllegalMoveException e) {
@@ -67,7 +67,7 @@ public class PlayerTest extends EventTest {
         assertEquals(1, player.getCapturedPieces().size());
         assertTrue(player.getCapturedPieces().contains(enemyPawn));
 
-        checkEvent(1,"Foo moved d5 to c6; captured piece (added to their capturedPieces)");
+        checkEvent(1, "Foo moved d5 to c6; captured piece (added to their capturedPieces)");
     }
 
     @Test

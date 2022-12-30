@@ -12,7 +12,7 @@ public class PositionTest {
 
     @BeforeEach
     void beforeEach() {
-        this.position = new Position(3,3);
+        this.position = new Position(3, 3);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class PositionTest {
 
     @Test
     void promoteWhitePawnTest() {
-        position = new Position(0,2);
+        position = new Position(0, 2);
         position.setPiece(new Pawn(1));
         assertTrue(position.getPiece() instanceof Queen);
         assertEquals(1, position.getPiece().getColor());
@@ -36,14 +36,14 @@ public class PositionTest {
 
     @Test
     void doNotPromoteWhitePawnTest() {
-        position = new Position(7,2);
+        position = new Position(7, 2);
         position.setPiece(new Pawn(1));
         assertTrue(position.getPiece() instanceof Pawn);
     }
 
     @Test
     void promoteBlackPawnTest() {
-        position = new Position(7,2);
+        position = new Position(7, 2);
         position.setPiece(new Pawn(-1));
         assertTrue(position.getPiece() instanceof Queen);
         assertEquals(-1, position.getPiece().getColor());
@@ -51,7 +51,7 @@ public class PositionTest {
 
     @Test
     void doNotPromoteBlackPawnTest() {
-        position = new Position(0,2);
+        position = new Position(0, 2);
         position.setPiece(new Pawn(-1));
         assertTrue(position.getPiece() instanceof Pawn);
     }
