@@ -1,4 +1,4 @@
-# Chess Engine
+# Chess Game
 ## UBC CPSC 210 Project
 
 This application is a chess game, where users have the
